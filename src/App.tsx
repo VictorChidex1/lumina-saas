@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
+import { AuthProvider } from "./context/AuthContext";
 
 // We will add more components here later (Features, Pricing, etc.)
 
@@ -17,18 +17,20 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-indigo-100 selection:text-indigo-800">
-      {/* 1. Navigation Bar */}
-      <Navbar onSignin={handleSignIn} onGetStarted={handleGetStarted} />
+    <AuthProvider>
+      <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-indigo-100 selection:text-indigo-800">
+        {/* 1. Navigation Bar */}
+        <Navbar onSignin={handleSignIn} onGetStarted={handleGetStarted} />
 
-      {/* 2. Hero Section */}
-      <Hero onGetStarted={handleGetStarted} />
+        {/* 2. Hero Section */}
+        <Hero onGetStarted={handleGetStarted} />
 
-      {/* Placeholder for future sections */}
-      <div className="py-20 text-center text-gray-400">
-        (Features & Pricing sections will go here)
+        {/* Placeholder for future sections */}
+        <div className="py-20 text-center text-gray-400">
+          (Features & Pricing sections will go here)
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 }
 
