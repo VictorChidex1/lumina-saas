@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../lib/firebase";
+import { sendWelcomeEmail } from "../lib/email";
 
 interface AuthContextType {
   user: User | null;
@@ -46,13 +47,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
+        const displayName = name || user.displayName || "User";
+
         await setDoc(userRef, {
           uid: user.uid,
           email: user.email,
-          displayName: name || user.displayName,
+          displayName: displayName,
           photoURL: user.photoURL,
           createdAt: serverTimestamp(),
         });
+
+        // Send Welcome Email for NEW users only
+        if (user.email) {
+          await sendWelcomeEmail(user.email, displayName);
+        }
       }
     } catch (error) {
       console.error("Error creating user profile", error);

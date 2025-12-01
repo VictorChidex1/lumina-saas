@@ -1,0 +1,34 @@
+import emailjs from "@emailjs/browser";
+
+// Initialize EmailJS with your Public Key
+// We will call this when the app starts or before sending
+export const initEmail = () => {
+  emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+};
+
+export const sendWelcomeEmail = async (email: string, name: string) => {
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+  if (!serviceId || !templateId || !publicKey) {
+    console.warn("EmailJS credentials missing. Skipping email.");
+    return;
+  }
+
+  try {
+    const response = await emailjs.send(
+      serviceId,
+      templateId,
+      {
+        to_email: email,
+        to_name: name,
+        // Add any other variables your template uses here
+      },
+      publicKey
+    );
+    console.log("Welcome email sent!", response.status, response.text);
+  } catch (error) {
+    console.error("Failed to send welcome email:", error);
+  }
+};
