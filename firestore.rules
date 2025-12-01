@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. User Profiles: Users can only read/write their OWN data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // 2. Default: Deny everything else by default (Strict Security)
+    // As we build features (like "Posts" or "Projects"), we will add specific rules here.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
