@@ -6,10 +6,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
+  // Use the repo name for GitHub Pages, otherwise use root (for Vercel/Local)
+  const isGitHubPages = mode === "production" && !env.VERCEL;
+
   return {
     plugins: [react(), tailwindcss()],
-    // If we are building for Vercel, use root '/'.
-    // If for GitHub Pages, use the repo name.
-    base: env.VERCEL ? "/" : "/lumina-saas/",
+    base: isGitHubPages ? "/lumina-saas/" : "/",
   };
 });
