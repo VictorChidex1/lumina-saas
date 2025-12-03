@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import logo from "../assets/images/Logo.png";
 
+import profilePicture from "../assets/images/profile-picture.png";
+
 interface NavbarProps {
   onMenuClick?: () => void;
   isSidebarOpen?: boolean;
@@ -119,19 +121,11 @@ export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
                 className="flex items-center gap-3 p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-medium overflow-hidden">
-                  {user?.photoURL ? (
-                    <img
-                      src={user.photoURL}
-                      alt={user.displayName || "User"}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    (
-                      user?.displayName?.[0] ||
-                      user?.email?.[0] ||
-                      "U"
-                    ).toUpperCase()
-                  )}
+                  <img
+                    src={user?.photoURL || profilePicture}
+                    alt={user?.displayName || "User"}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {user?.displayName || user?.email?.split("@")[0]}

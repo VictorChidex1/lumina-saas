@@ -3,7 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import { DashboardLayout } from "../components/DashboardLayout";
 import { updateProfile, updatePassword, deleteUser } from "firebase/auth";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
-import { auth, db } from "../lib/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { auth, db, storage } from "../lib/firebase";
 import {
   Save,
   Loader2,
@@ -22,6 +23,29 @@ export function Settings() {
   const { theme, setTheme } = useTheme();
   const [displayName, setDisplayName] = useState(user?.displayName || "");
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    setUploading(true);
+    try {
+      const storageRef = ref(storage, `profile-pictures/${user.uid}`);
+      await uploadBytes(storageRef, file);
+      const photoURL = await getDownloadURL(storageRef);
+
+      await updateProfile(user, { photoURL });
+
+      setMessage({ type: "success", text: "Profile picture updated!" });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      setMessage({ type: "error", text: "Failed to upload image." });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -218,8 +242,33 @@ export function Settings() {
               className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm"
             >
               <div className="flex items-center gap-4">
-                <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400">
-                  {user?.displayName?.[0] || "U"}
+                <div className="relative group">
+                  <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400 overflow-hidden">
+                    {user?.photoURL ? (
+                      <img
+                        src={user.photoURL}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      user?.displayName?.[0] || "U"
+                    )}
+                  </div>
+                  <label className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 rounded-full cursor-pointer transition-opacity">
+                    <span className="text-xs font-medium">Change</span>
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={uploading}
+                    />
+                  </label>
+                  {uploading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
+                      <Loader2 className="w-6 h-6 text-white animate-spin" />
+                    </div>
+                  )}
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
@@ -308,11 +357,12 @@ export function Settings() {
                       onChange={(e) => setTimeZone(e.target.value)}
                       className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none"
                     >
-                      <option value="UTC">UTC</option>
-                      <option value="PST">PST</option>
-                      <option value="EST">EST</option>
-                      <option value="GMT">GMT</option>
-                      <option value="CET">CET</option>
+                      <option value="PST">PST (Pacific Standard Time)</option>
+                      <option value="EST">EST (Eastern Standard Time)</option>
+                      <option value="GMT">GMT (Greenwich Mean Time)</option>
+                      <option value="CET">CET (Central European Time)</option>
+                      <option value="WAT">WAT (West Africa Time)</option>
+                      <option value="IST">IST (India Standard Time)</option>
                     </select>
                   </div>
                 </div>
