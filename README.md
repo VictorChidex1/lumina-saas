@@ -4,17 +4,21 @@ Lumina is a modern SaaS application built with React, Vite, and Firebase. It fea
 
 ## 🚀 Features
 
-- **Modern UI/UX**: Built with Tailwind CSS and Lucide React for a clean, professional look.
+- **Modern UI/UX**: Built with **Tailwind CSS v4** and Lucide React for a clean, professional look.
+- **Dark Mode**: Fully supported dark mode with a custom theme toggle (Light/Dark/System) and persistent state.
 - **Authentication**: Secure sign-up and sign-in using Firebase Auth (Google & Email/Password).
 - **Protected Dashboard**: User-specific dashboard accessible only after login.
+- **Profile Management**:
+  - **Custom Avatar Upload**: Users can upload profile pictures (stored via Base64 in Firestore) without requiring paid storage.
+  - **Settings Page**: Comprehensive settings for Profile, Appearance, Notifications, and Account Management.
 - **Database Integration**: User profiles are automatically stored in Cloud Firestore.
 - **Welcome Emails**: Automated welcome emails sent via EmailJS upon sign-up.
-- **Responsive Design**: Fully optimized for mobile, tablet, and desktop.
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop with smooth **Framer Motion** animations.
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, TypeScript, Vite
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS v4, Framer Motion
 - **Backend/Auth**: Firebase (Auth, Firestore)
 - **Email Service**: EmailJS
 - **Deployment**: Vercel (Production), GitHub Pages (Demo)
