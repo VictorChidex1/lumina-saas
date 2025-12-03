@@ -3,6 +3,8 @@ import { Hero } from "../components/Hero";
 import { Features } from "../components/Features";
 import { Pricing } from "../components/Pricing";
 
+import Testimonials from "../components/Testimonials";
+
 export function LandingPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 selection:bg-indigo-100 dark:selection:bg-indigo-900/30 selection:text-indigo-900 dark:selection:text-indigo-100">
@@ -10,6 +12,7 @@ export function LandingPage() {
       <Hero onGetStarted={() => {}} />
       <Features />
       <Pricing />
+      <Testimonials />
     </div>
   );
 }
