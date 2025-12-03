@@ -14,7 +14,7 @@ import {
   Moon,
   LayoutDashboard,
 } from "lucide-react";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/Logo.png";
 
 interface NavbarProps {
   onMenuClick?: () => void;

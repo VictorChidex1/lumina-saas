@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/Logo.png";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
