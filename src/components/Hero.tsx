@@ -1,54 +1,139 @@
 import { ArrowRight, Play } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+import heroImage from "../assets/images/hero.png";
 
 interface HeroProps {
   onGetStarted: () => void;
 }
 
 export function Hero({ onGetStarted }: HeroProps) {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
-    <div className="relative overflow-hidden bg-white pt-16 pb-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-600 mb-8 animate-fade-in-up">
-          <span className="flex h-2 w-2 rounded-full bg-indigo-600 mr-2"></span>
-          New: AI Content Generator 2.0
-        </div>
+    <div className="relative overflow-hidden bg-white dark:bg-gray-950 pt-24 pb-16 md:pt-32 md:pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Hero Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-gray-900 dark:bg-gray-900/95 backdrop-blur-sm mb-8 md:mb-12"
+        >
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <motion.img
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.5 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              src={heroImage}
+              alt="Background"
+              className="w-full h-full object-cover"
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/60 to-gray-900/30 mix-blend-multiply" />
+          </div>
 
-        {/* Headline */}
-        <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight animate-fade-in-up animate-delay-100">
-          Turn social chaos <br />
-          into{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
-            predictable growth
-          </span>
-          .
-        </h1>
+          {/* Content Overlay */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="relative z-10 px-4 py-16 md:px-6 md:py-32 text-center max-w-4xl mx-auto"
+          >
+            {/* Badge */}
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs md:text-sm font-medium text-white mb-6 md:mb-8 backdrop-blur-sm"
+            >
+              <span className="flex h-2 w-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
+              New: AI Content Generator 2.0
+            </motion.div>
 
-        {/* Subheadline */}
-        <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500 mb-10 animate-fade-in-up animate-delay-200">
-          Lumina helps brands publish, analyze, and grow across all channels
-          using predictive AI. Stop guessing, start scaling.
-        </p>
+            {/* Headline */}
+            <motion.h1
+              variants={itemVariants}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-4 md:mb-6 leading-tight"
+            >
+              Turn social chaos <br className="hidden md:block" />
+              into{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+                predictable growth
+              </span>
+              .
+            </motion.h1>
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up animate-delay-300">
-          <button
+            {/* Subheadline */}
+            <motion.p
+              variants={itemVariants}
+              className="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-xl text-gray-200 mb-0 leading-relaxed px-2"
+            >
+              Lumina helps brands publish, analyze, and grow across all channels
+              using predictive AI. Stop guessing, start scaling.
+            </motion.p>
+          </motion.div>
+        </motion.div>
+
+        {/* Buttons - Placed below the card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 px-4"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onGetStarted}
-            className="bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-800 transition-all shadow-xl hover:-translate-y-1 flex items-center justify-center"
+            className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3.5 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors shadow-xl flex items-center justify-center w-full sm:w-auto"
           >
             Start Free Trial
             <ArrowRight size={20} className="ml-2" />
-          </button>
-          <button className="bg-white text-gray-700 border border-gray-200 px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-50 transition-all flex items-center justify-center">
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05, backgroundColor: "#f9fafb" }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 px-6 py-3.5 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center w-full sm:w-auto"
+          >
             <Play size={20} className="mr-2" />
             Watch Demo
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
 
-      {/* Abstract Background Blobs */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-100/50 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-100/50 rounded-full blur-3xl -z-10" />
+      {/* Abstract Background Blobs (Behind everything) */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-100/50 dark:bg-indigo-900/20 rounded-full blur-3xl -z-10"
+      />
     </div>
   );
 }
