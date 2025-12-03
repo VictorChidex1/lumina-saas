@@ -27,7 +27,7 @@ const plans = [
   },
   {
     name: "Pro",
-    price: "$20",
+    price: "$29",
     period: "/month",
     description: "Ideal for growing creators and small teams.",
     features: [
@@ -82,66 +82,87 @@ export function Pricing() {
               transition={{ delay: index * 0.1 }}
               className="relative"
             >
-              <Card
-                className={`h-full flex flex-col ${
+              <motion.div
+                animate={
                   plan.popular
-                    ? "border-indigo-600 dark:border-indigo-500 shadow-xl scale-105 z-10"
-                    : "border-gray-200 dark:border-gray-800"
-                } bg-white dark:bg-gray-900`}
+                    ? {
+                        scale: [1, 1.02, 1],
+                        transition: {
+                          duration: 2,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                        },
+                      }
+                    : {}
+                }
+                whileHover={{
+                  y: -12,
+                  scale: 1.05,
+                  transition: { duration: 0.3 },
+                }}
+                className="h-full"
               >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {plan.name}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600 dark:text-gray-400">
-                    {plan.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-gray-900 dark:text-white">
-                      {plan.price}
-                    </span>
-                    {plan.period && (
-                      <span className="text-gray-600 dark:text-gray-400">
-                        {plan.period}
+                <Card
+                  className={`h-full flex flex-col ${
+                    plan.popular
+                      ? "border-indigo-600 dark:border-indigo-500 shadow-xl z-10"
+                      : "border-gray-200 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700"
+                  } bg-white dark:bg-gray-900 transition-colors duration-300`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
+                        Most Popular
                       </span>
-                    )}
-                  </div>
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <Check
-                          size={20}
-                          className="text-green-500 flex-shrink-0"
-                        />
-                        <span className="text-gray-700 dark:text-gray-300">
-                          {feature}
+                    </div>
+                  )}
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {plan.name}
+                    </CardTitle>
+                    <CardDescription className="text-gray-600 dark:text-gray-400">
+                      {plan.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <div className="mb-6">
+                      <span className="text-4xl font-bold text-gray-900 dark:text-white">
+                        {plan.price}
+                      </span>
+                      {plan.period && (
+                        <span className="text-gray-600 dark:text-gray-400">
+                          {plan.period}
                         </span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button
-                    className={`w-full ${
-                      plan.popular
-                        ? "bg-indigo-600 hover:bg-indigo-700 text-white"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
-                    }`}
-                    size="lg"
-                  >
-                    {plan.cta}
-                  </Button>
-                </CardFooter>
-              </Card>
+                      )}
+                    </div>
+                    <ul className="space-y-3">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-center gap-3">
+                          <Check
+                            size={20}
+                            className="text-green-500 flex-shrink-0"
+                          />
+                          <span className="text-gray-700 dark:text-gray-300">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      className={`w-full ${
+                        plan.popular
+                          ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg hover:shadow-indigo-500/30"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                      }`}
+                      size="lg"
+                    >
+                      {plan.cta}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
             </motion.div>
           ))}
         </div>
