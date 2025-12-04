@@ -144,7 +144,7 @@ const Footer = () => {
           <p className="text-gray-500 text-sm">
             © {currentYear} Lumina. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-gray-500">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-500">
             <a href="#" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
