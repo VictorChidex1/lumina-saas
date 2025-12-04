@@ -13,6 +13,7 @@ import {
   Sun,
   Moon,
   LayoutDashboard,
+  Shield,
 } from "lucide-react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../lib/firebase";
@@ -28,7 +29,7 @@ interface NavbarProps {
 }
 
 export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
-  const { user, logout } = useAuth();
+  const { user, userRole, logout } = useAuth();
   const { toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -167,6 +168,16 @@ export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
                         {user?.email}
                       </p>
                     </div>
+                    {userRole === "admin" && (
+                      <Link
+                        to="/admin"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                        onClick={() => setIsProfileOpen(false)}
+                      >
+                        <Shield size={16} />
+                        Admin
+                      </Link>
+                    )}
                     <Link
                       to="/dashboard"
                       className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
@@ -228,6 +239,15 @@ export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
               </a>
             ))}
             <div className="border-t border-gray-100 dark:border-gray-800 my-2"></div>
+            {userRole === "admin" && (
+              <Link
+                to="/admin"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Admin
+              </Link>
+            )}
             <Link
               to="/dashboard"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"

@@ -46,9 +46,9 @@ const AdminDashboard = () => {
           apps.push({ id: doc.id, ...doc.data() } as Application);
         });
         setApplications(apps);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error fetching applications:", error);
-        toast.error("Failed to load applications.");
+        toast.error(`Failed to load applications: ${error.message}`);
       } finally {
         setLoading(false);
       }
