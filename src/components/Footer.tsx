@@ -81,7 +81,7 @@ const Footer = () => {
           >
             <h4 className="text-white font-semibold mb-6">Company</h4>
             <ul className="space-y-4">
-              {["About Us", "Blog", "Careers"].map((item) => (
+              {["About Us", "Blog"].map((item) => (
                 <li key={item}>
                   <motion.a
                     href="#"
@@ -92,6 +92,16 @@ const Footer = () => {
                   </motion.a>
                 </li>
               ))}
+              <li>
+                <Link to="/careers">
+                  <motion.span
+                    whileHover={{ x: 5 }}
+                    className="inline-block text-gray-400 hover:text-indigo-400 transition-colors cursor-pointer"
+                  >
+                    Careers
+                  </motion.span>
+                </Link>
+              </li>
               <li>
                 <Link to="/contact">
                   <motion.span

@@ -7,6 +7,7 @@ import { Settings } from "./pages/Settings";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import ContactPage from "./pages/ContactPage";
+import CareersPage from "./pages/CareersPage";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/careers" element={<CareersPage />} />
             <Route
               path="/dashboard"
               element={
