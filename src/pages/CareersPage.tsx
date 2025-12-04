@@ -36,6 +36,7 @@ const CareersPage = () => {
     lastName: "",
     email: "",
     resume: null as string | null,
+    resumeName: "" as string,
     coverLetter: "",
   });
 
@@ -48,7 +49,11 @@ const CareersPage = () => {
       }
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData((prev) => ({ ...prev, resume: reader.result as string }));
+        setFormData((prev) => ({
+          ...prev,
+          resume: reader.result as string,
+          resumeName: file.name,
+        }));
         toast.success("Resume attached successfully.");
       };
       reader.readAsDataURL(file);
@@ -75,6 +80,7 @@ const CareersPage = () => {
         lastName: formData.lastName,
         email: formData.email,
         resume: formData.resume,
+        resumeName: formData.resumeName,
         coverLetter: formData.coverLetter,
         createdAt: serverTimestamp(),
       });
@@ -84,6 +90,7 @@ const CareersPage = () => {
         lastName: "",
         email: "",
         resume: null,
+        resumeName: "",
         coverLetter: "",
       });
       setSelectedRole(null); // Close dialog
@@ -415,8 +422,8 @@ const CareersPage = () => {
                                   or drag and drop
                                 </p>
                                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                                  {formData.resume
-                                    ? "Resume attached!"
+                                  {formData.resumeName
+                                    ? formData.resumeName
                                     : "PDF, DOCX (MAX. 500KB)"}
                                 </p>
                               </div>
