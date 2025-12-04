@@ -81,45 +81,99 @@ const AboutPage = () => {
                 </div>
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1,
+                    },
+                  },
+                }}
                 className="relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-3xl opacity-10 blur-2xl -z-10"></div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-4 mt-8">
-                    <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
-                      <Target className="w-8 h-8 text-indigo-600 mb-4" />
-                      <h3 className="font-bold mb-2">Focus</h3>
-                      <p className="text-sm text-gray-500">
-                        We solve real problems for real creators.
-                      </p>
-                    </div>
-                    <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
-                      <Zap className="w-8 h-8 text-indigo-600 mb-4" />
-                      <h3 className="font-bold mb-2">Speed</h3>
-                      <p className="text-sm text-gray-500">
-                        From idea to reality in seconds.
-                      </p>
-                    </div>
+                    {[
+                      {
+                        icon: Target,
+                        title: "Focus",
+                        desc: "We solve real problems for real creators.",
+                      },
+                      {
+                        icon: Zap,
+                        title: "Speed",
+                        desc: "From idea to reality in seconds.",
+                      },
+                    ].map((item, index) => (
+                      <motion.div
+                        key={index}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: {
+                            opacity: 1,
+                            y: 0,
+                            transition: { duration: 0.5 },
+                          },
+                        }}
+                        whileHover={{
+                          y: -5,
+                          borderColor: "rgba(99, 102, 241, 0.5)",
+                        }}
+                        className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 transition-colors shadow-sm hover:shadow-md"
+                      >
+                        <item.icon className="w-8 h-8 text-indigo-600 mb-4" />
+                        <h3 className="font-bold mb-2 text-gray-900 dark:text-white">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {item.desc}
+                        </p>
+                      </motion.div>
+                    ))}
                   </div>
                   <div className="space-y-4">
-                    <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
-                      <Heart className="w-8 h-8 text-indigo-600 mb-4" />
-                      <h3 className="font-bold mb-2">Empathy</h3>
-                      <p className="text-sm text-gray-500">
-                        Designed for humans, not machines.
-                      </p>
-                    </div>
-                    <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
-                      <Globe className="w-8 h-8 text-indigo-600 mb-4" />
-                      <h3 className="font-bold mb-2">Impact</h3>
-                      <p className="text-sm text-gray-500">
-                        Tools used by millions worldwide.
-                      </p>
-                    </div>
+                    {[
+                      {
+                        icon: Heart,
+                        title: "Empathy",
+                        desc: "Designed for humans, not machines.",
+                      },
+                      {
+                        icon: Globe,
+                        title: "Impact",
+                        desc: "Tools used by millions worldwide.",
+                      },
+                    ].map((item, index) => (
+                      <motion.div
+                        key={index}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: {
+                            opacity: 1,
+                            y: 0,
+                            transition: { duration: 0.5 },
+                          },
+                        }}
+                        whileHover={{
+                          y: -5,
+                          borderColor: "rgba(99, 102, 241, 0.5)",
+                        }}
+                        className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 transition-colors shadow-sm hover:shadow-md"
+                      >
+                        <item.icon className="w-8 h-8 text-indigo-600 mb-4" />
+                        <h3 className="font-bold mb-2 text-gray-900 dark:text-white">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {item.desc}
+                        </p>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -133,10 +187,10 @@ const AboutPage = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {[
-                { label: "Active Users", value: "50k+" },
-                { label: "Countries", value: "120+" },
+                { label: "Active Users", value: "80k+" },
+                { label: "Countries", value: "125+" },
                 { label: "Content Created", value: "1M+" },
-                { label: "Team Members", value: "45" },
+                { label: "Team Members", value: "40" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -243,24 +297,44 @@ const AboutPage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
-                  name: "Sarah Chen",
+                  name: "Agbaho Victor",
                   role: "CEO & Founder",
-                  img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=400&h=400",
+                  img: "/agbaho-victor.png",
+                },
+                {
+                  name: "Dr Agbaho Ozioma",
+                  role: "CMO",
+                  img: "/dr-ozioma.png",
                 },
                 {
                   name: "David Miller",
                   role: "CTO",
-                  img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400&h=400",
+                  img: "/david-miller.png",
+                },
+                {
+                  name: "Sarah Chen",
+                  role: "Senior Software Engineer ",
+                  img: "/sarah-chen.png",
                 },
                 {
                   name: "Emily Zhang",
                   role: "Head of Design",
-                  img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400&h=400",
+                  img: "/emily-zhang.png",
                 },
                 {
                   name: "Michael Ross",
                   role: "Head of Product",
-                  img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400&h=400",
+                  img: "/michael-ross.png",
+                },
+                {
+                  name: "Alex Johnson",
+                  role: "Head of Neuroscience",
+                  img: "/dr-alex.png",
+                },
+                {
+                  name: "Karl Dorathy",
+                  role: "Head of Growth",
+                  img: "/karl-dora.png",
                 },
               ].map((member, index) => (
                 <motion.div
