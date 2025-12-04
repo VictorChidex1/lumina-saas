@@ -28,34 +28,23 @@ const Footer = () => {
               solutions. Scale your presence effortlessly.
             </p>
             <div className="flex gap-4">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
+              {[
+                { icon: Twitter, label: "Twitter" },
+                { icon: Github, label: "GitHub" },
+                { icon: Linkedin, label: "LinkedIn" },
+                { icon: Facebook, label: "Facebook" },
+              ].map((social, index) => (
+                <motion.a
+                  key={index}
+                  href="#"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-gray-400 hover:text-white transition-colors"
+                  aria-label={social.label}
+                >
+                  <social.icon className="w-5 h-5" />
+                </motion.a>
+              ))}
             </div>
           </motion.div>
 
@@ -68,38 +57,17 @@ const Footer = () => {
           >
             <h4 className="text-white font-semibold mb-6">Product</h4>
             <ul className="space-y-4">
-              <li>
-                <a
-                  href="#features"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Features
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#pricing"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#testimonials"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  Testimonials
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#faq"
-                  className="hover:text-indigo-400 transition-colors"
-                >
-                  FAQ
-                </a>
-              </li>
+              {["Features", "Pricing", "Testimonials", "FAQ"].map((item) => (
+                <li key={item}>
+                  <motion.a
+                    href={`#${item.toLowerCase()}`}
+                    whileHover={{ x: 5 }}
+                    className="inline-block text-gray-400 hover:text-indigo-400 transition-colors"
+                  >
+                    {item}
+                  </motion.a>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -112,26 +80,17 @@ const Footer = () => {
           >
             <h4 className="text-white font-semibold mb-6">Company</h4>
             <ul className="space-y-4">
-              <li>
-                <a href="#" className="hover:text-indigo-400 transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-indigo-400 transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-indigo-400 transition-colors">
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-indigo-400 transition-colors">
-                  Contact
-                </a>
-              </li>
+              {["About Us", "Blog", "Careers", "Contact"].map((item) => (
+                <li key={item}>
+                  <motion.a
+                    href="#"
+                    whileHover={{ x: 5 }}
+                    className="inline-block text-gray-400 hover:text-indigo-400 transition-colors"
+                  >
+                    {item}
+                  </motion.a>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -151,9 +110,9 @@ const Footer = () => {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-indigo-500"
+                className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus-visible:ring-indigo-500 transition-all duration-300 focus:scale-[1.02] origin-left"
               />
-              <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">
+              <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]">
                 Subscribe
               </Button>
             </form>

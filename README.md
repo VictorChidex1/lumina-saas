@@ -1,27 +1,37 @@
 # Lumina SaaS
 
-Lumina is a modern SaaS application built with React, Vite, and Firebase. It features a responsive landing page, secure authentication (Google + Email), a protected user dashboard, and automated welcome emails.
+Lumina is a modern SaaS application built with **React**, **Vite**, and **Firebase**. It features a high-converting landing page, secure authentication, a protected user dashboard, and a robust settings system.
 
 ## 🚀 Features
 
-- **Modern UI/UX**: Built with **Tailwind CSS v4** and Lucide React for a clean, professional look.
-- **Dark Mode**: Fully supported dark mode with a custom theme toggle (Light/Dark/System) and persistent state.
-- **Authentication**: Secure sign-up and sign-in using Firebase Auth (Google & Email/Password).
-- **Protected Dashboard**: User-specific dashboard accessible only after login.
-- **Profile Management**:
-  - **Custom Avatar Upload**: Users can upload profile pictures (stored via Base64 in Firestore) without requiring paid storage.
-  - **Settings Page**: Comprehensive settings for Profile, Appearance, Notifications, and Account Management.
-- **Database Integration**: User profiles are automatically stored in Cloud Firestore.
-- **Welcome Emails**: Automated welcome emails sent via EmailJS upon sign-up.
-- **Responsive Design**: Fully optimized for mobile, tablet, and desktop with smooth **Framer Motion** animations.
+### **Landing Page**
+
+A professional, high-performance landing page designed to convert:
+
+- **Hero Section**: Immersive background with fade-in animations.
+- **Features**: Interactive grid with **3D Tilt** effects on hover.
+- **How It Works**: Step-by-step process with **Pop & Wiggle** animations and a drawing connector line.
+- **Testimonials**: Social proof with **Floating + Scale** card animations.
+- **Pricing**: Clear pricing tiers with a **Pulse** effect on the popular plan.
+- **FAQ**: Objection handling with **Cascade** entrance and **Focus Glow** effects.
+- **Footer**: 4-column layout with integrated **Newsletter Signup**.
+
+### **Core Application**
+
+- **Authentication**: Secure Google & Email/Password login via **Firebase Auth**.
+- **Dashboard**: Protected user area with responsive sidebar navigation.
+- **Settings**: Comprehensive user preferences (Profile, Security, Notifications, Billing).
+- **Profile Management**: Custom avatar upload (stored via Base64 in Firestore) with real-time sync.
+- **Dark Mode**: System-wide dark mode with persistent state.
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, TypeScript, Vite
-- **Styling**: Tailwind CSS v4, Framer Motion
-- **Backend/Auth**: Firebase (Auth, Firestore)
-- **Email Service**: EmailJS
-- **Deployment**: Vercel (Production), GitHub Pages (Demo)
+- **UI Library**: **shadcn/ui** (Headless UI + Tailwind)
+- **Styling**: Tailwind CSS v4, Lucide React
+- **Animation**: **Framer Motion** (Complex gestures & transitions)
+- **Backend**: Firebase (Auth, Firestore)
+- **Email**: EmailJS (Welcome emails)
 
 ## 📦 Installation
 
@@ -39,25 +49,9 @@ Lumina is a modern SaaS application built with React, Vite, and Firebase. It fea
     ```
 
 3.  **Set up Environment Variables:**
-
-    Create a `.env.local` file in the root directory and add your keys (see `.env.example`):
-
-    ```env
-    VITE_FIREBASE_API_KEY=your_api_key
-    VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-    VITE_FIREBASE_PROJECT_ID=your_project_id
-    VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-    VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-    VITE_FIREBASE_APP_ID=your_app_id
-
-    # EmailJS Configuration
-    VITE_EMAILJS_SERVICE_ID=your_service_id
-    VITE_EMAILJS_TEMPLATE_ID=your_template_id
-    VITE_EMAILJS_PUBLIC_KEY=your_public_key
-    ```
+    Create a `.env.local` file with your Firebase and EmailJS keys (see `.env.example`).
 
 4.  **Run the development server:**
-
     ```bash
     npm run dev
     ```
@@ -66,7 +60,7 @@ Lumina is a modern SaaS application built with React, Vite, and Firebase. It fea
 
 ### Vercel (Recommended)
 
-The project is optimized for Vercel. Simply import the repository and add the environment variables in the Vercel Dashboard.
+The project is optimized for Vercel. Simply import the repository and add your environment variables.
 
 ### GitHub Pages
 
@@ -75,8 +69,6 @@ To deploy to GitHub Pages:
 ```bash
 npm run deploy
 ```
-
-This command builds the project with the correct base path (`/lumina-saas/`) and pushes it to the `gh-pages` branch.
 
 ## 📄 License
 
