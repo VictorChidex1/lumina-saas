@@ -24,3 +24,24 @@ export interface UserFormData {
 }
 
 export type AppView = "landing" | "wizard";
+
+export interface UserProfile {
+  uid: string;
+  email: string;
+  displayName: string;
+  photoURL?: string;
+  role?: "admin" | "user";
+  createdAt: any;
+}
+
+export interface Application {
+  id: string;
+  role: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  resume: string; // Base64 string
+  resumeName?: string;
+  coverLetter: string;
+  createdAt: any;
+}

@@ -10,6 +10,8 @@ import ContactPage from "./pages/ContactPage";
 import CareersPage from "./pages/CareersPage";
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "@/components/ui/sonner";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
+import { AdminRoute } from "@/components/AdminRoute";
 
 function App() {
   return (
@@ -22,6 +24,14 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/careers" element={<CareersPage />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              }
+            />
             <Route
               path="/dashboard"
               element={

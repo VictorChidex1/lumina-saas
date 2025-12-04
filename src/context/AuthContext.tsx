@@ -15,6 +15,7 @@ import { sendWelcomeEmail } from "../lib/email";
 
 interface AuthContextType {
   user: User | null;
+  userRole: "admin" | "user" | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signUpWithEmail: (
@@ -30,11 +31,24 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [userRole, setUserRole] = useState<"admin" | "user" | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        // Fetch user role
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setUserRole(userSnap.data().role as "admin" | "user");
+        } else {
+          setUserRole("user");
+        }
+      } else {
+        setUserRole(null);
+      }
       setLoading(false);
     });
     return () => unsubscribe();
@@ -125,6 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
+        userRole,
         loading,
         signInWithGoogle,
         signUpWithEmail,

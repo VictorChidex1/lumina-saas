@@ -24,6 +24,17 @@ A professional, high-performance landing page designed to convert:
 - **Profile Management**: Custom avatar upload (stored via Base64 in Firestore) with real-time sync.
 - **Dark Mode**: System-wide dark mode with persistent state.
 
+### **New Pages**
+
+- **Careers Page**:
+  - **Hero & Culture**: Immersive visuals with parallax effects.
+  - **Job Board**: Dynamic list of open positions.
+  - **Application System**: Seamless **Modal Form** integrated with Firebase.
+  - **Resume Upload**: Auto-converts files to Base64 for secure storage.
+- **Contact Page**:
+  - **Split Layout**: Professional design with "What to expect" guidelines.
+  - **Validation**: Real-time form validation and user feedback.
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, TypeScript, Vite
