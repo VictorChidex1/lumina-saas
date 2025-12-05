@@ -34,6 +34,14 @@ A professional, high-performance landing page designed to convert:
 - **Contact Page**:
   - **Split Layout**: Professional design with "What to expect" guidelines.
   - **Validation**: Real-time form validation and user feedback.
+- **Blog System (New)**:
+  - **Public Blog**: Dynamic grid layout with category filtering.
+  - **Article Pages**: SEO-friendly dynamic routes (`/blog/:slug`) with rich content rendering.
+  - **Firestore Integration**: All content is fetched in real-time from Firebase.
+- **Admin Dashboard (New)**:
+  - **Blog Management**: Create, edit, and delete posts directly from the dashboard.
+  - **Auto-Slug**: Intelligent URL generation based on post titles.
+  - **Migration Tool**: One-click utility to upload demo content to the database.
 
 ## 🛠️ Tech Stack
 
