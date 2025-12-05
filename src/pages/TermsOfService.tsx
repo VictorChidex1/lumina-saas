@@ -5,14 +5,14 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import {
   Printer,
   Download,
-  Shield,
-  Mail,
+  Scale,
   ArrowRight,
   FileText,
+  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const PrivacyPolicy = () => {
+const TermsOfService = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -20,20 +20,20 @@ const PrivacyPolicy = () => {
     restDelta: 0.001,
   });
 
-  const [activeSection, setActiveSection] = useState("introduction");
+  const [activeSection, setActiveSection] = useState("acceptance");
 
   const sections = [
-    { id: "introduction", title: "1. Introduction" },
-    { id: "data-collection", title: "2. Data We Collect" },
-    { id: "data-usage", title: "3. How We Use Your Data" },
-    { id: "data-security", title: "4. Data Security" },
-    { id: "legal-rights", title: "5. Your Legal Rights" },
-    { id: "contact", title: "6. Contact Us" },
+    { id: "acceptance", title: "1. Acceptance of Terms" },
+    { id: "use-license", title: "2. Use License" },
+    { id: "disclaimer", title: "3. Disclaimer" },
+    { id: "limitations", title: "4. Limitations" },
+    { id: "revisions", title: "5. Revisions" },
+    { id: "governing-law", title: "6. Governing Law" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200; // Offset for better detection
+      const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
         const element = document.getElementById(section.id);
@@ -54,7 +54,7 @@ const PrivacyPolicy = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const y = element.getBoundingClientRect().top + window.pageYOffset - 100; // Offset for navbar
+      const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
@@ -76,7 +76,7 @@ const PrivacyPolicy = () => {
           <div className="absolute inset-0 z-0">
             <img
               src="/privacy-hero.png"
-              alt="Privacy Policy Background"
+              alt="Terms Background"
               className="w-full h-full object-cover opacity-50 dark:opacity-40"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/80 via-indigo-950/80 to-indigo-950 dark:from-black/80 dark:via-black/80 dark:to-black"></div>
@@ -103,14 +103,13 @@ const PrivacyPolicy = () => {
                 Legal
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-white">
-                Privacy{" "}
+                Terms of{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-                  Policy
+                  Service
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-indigo-200 mb-10 leading-relaxed max-w-2xl mx-auto">
-                Transparency and trust are core to Lumina. Here's how we handle
-                your data.
+                Please read these terms carefully before using our service.
               </p>
             </motion.div>
           </div>
@@ -189,182 +188,135 @@ const PrivacyPolicy = () => {
                   className="gap-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
                 >
                   <Printer className="w-4 h-4" />
-                  Print Policy
+                  Print Terms
                 </Button>
               </div>
 
               <div className="prose prose-lg dark:prose-invert max-w-none space-y-16">
-                <section id="introduction" className="scroll-mt-32">
+                <section id="acceptance" className="scroll-mt-32">
                   <h2 className="flex items-center gap-3 text-2xl font-bold mb-6 text-gray-900 dark:text-white group">
                     <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-sm text-indigo-600 dark:text-indigo-400">
                       1
                     </span>
-                    Introduction
+                    Acceptance of Terms
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Welcome to Lumina. We respect your privacy and are committed
-                    to protecting your personal data. This privacy policy will
-                    inform you as to how we look after your personal data when
-                    you visit our website (regardless of where you visit it
-                    from) and tell you about your privacy rights and how the law
-                    protects you.
+                    By accessing and placing an order with Lumina, you confirm
+                    that you are in agreement with and bound by the terms of
+                    service contained in the Terms & Conditions outlined below.
+                    These terms apply to the entire website and any email or
+                    other type of communication between you and Lumina.
                   </p>
                 </section>
 
-                <section id="data-collection" className="scroll-mt-32">
+                <section id="use-license" className="scroll-mt-32">
                   <h2 className="flex items-center gap-3 text-2xl font-bold mb-6 text-gray-900 dark:text-white">
                     <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-sm text-indigo-600 dark:text-indigo-400">
                       2
                     </span>
-                    Data We Collect
+                    Use License
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                    We may collect, use, store and transfer different kinds of
-                    personal data about you which we have grouped together
-                    follows:
-                  </p>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {[
-                      {
-                        title: "Identity Data",
-                        desc: "First name, last name, username",
-                      },
-                      {
-                        title: "Contact Data",
-                        desc: "Email, telephone, address",
-                      },
-                      {
-                        title: "Technical Data",
-                        desc: "IP address, browser, time zone",
-                      },
-                      { title: "Usage Data", desc: "How you use our website" },
-                    ].map((item, i) => (
-                      <div
-                        key={i}
-                        className="p-4 rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
-                      >
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          {item.title}
-                        </h4>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {item.desc}
-                        </p>
-                      </div>
-                    ))}
+                  <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-800 mb-6">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      Permission is granted to temporarily download one copy of
+                      the materials (information or software) on Lumina's
+                      website for personal, non-commercial transitory viewing
+                      only.
+                    </p>
+                    <ul className="space-y-2">
+                      {[
+                        "Modify or copy the materials",
+                        "Use the materials for any commercial purpose",
+                        "Attempt to decompile or reverse engineer any software",
+                        "Remove any copyright or other proprietary notations",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-indigo-500" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </section>
 
-                <section id="data-usage" className="scroll-mt-32">
+                <section id="disclaimer" className="scroll-mt-32">
                   <h2 className="flex items-center gap-3 text-2xl font-bold mb-6 text-gray-900 dark:text-white">
                     <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-sm text-indigo-600 dark:text-indigo-400">
                       3
                     </span>
-                    How We Use Your Data
+                    Disclaimer
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                    We will only use your personal data when the law allows us
-                    to. Most commonly, we will use your personal data in the
-                    following circumstances:
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    The materials on Lumina's website are provided "as is".
+                    Lumina makes no warranties, expressed or implied, and hereby
+                    disclaims and negates all other warranties, including
+                    without limitation, implied warranties or conditions of
+                    merchantability, fitness for a particular purpose, or
+                    non-infringement of intellectual property or other violation
+                    of rights.
                   </p>
-                  <ul className="space-y-3">
-                    {[
-                      "To perform the contract we are about to enter into with you.",
-                      "Where it is necessary for our legitimate interests (or those of a third party).",
-                      "Where we need to comply with a legal or regulatory obligation.",
-                    ].map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-3 text-gray-600 dark:text-gray-300"
-                      >
-                        <ArrowRight className="w-5 h-5 text-indigo-500 mt-0.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </section>
 
-                <section id="data-security" className="scroll-mt-32">
+                <section id="limitations" className="scroll-mt-32">
                   <h2 className="flex items-center gap-3 text-2xl font-bold mb-6 text-gray-900 dark:text-white">
                     <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-sm text-indigo-600 dark:text-indigo-400">
                       4
                     </span>
-                    Data Security
+                    Limitations
                   </h2>
-                  <div className="bg-indigo-50 dark:bg-indigo-900/10 border-l-4 border-indigo-500 p-6 rounded-r-xl">
-                    <div className="flex items-start gap-4">
-                      <Shield className="w-6 h-6 text-indigo-600 dark:text-indigo-400 flex-shrink-0 mt-1" />
-                      <p className="text-gray-700 dark:text-gray-300 italic">
-                        "We have put in place appropriate security measures to
-                        prevent your personal data from being accidentally lost,
-                        used or accessed in an unauthorized way."
-                      </p>
-                    </div>
-                  </div>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    In no event shall Lumina or its suppliers be liable for any
+                    damages (including, without limitation, damages for loss of
+                    data or profit, or due to business interruption) arising out
+                    of the use or inability to use the materials on Lumina's
+                    website, even if Lumina or a Lumina authorized
+                    representative has been notified orally or in writing of the
+                    possibility of such damage.
+                  </p>
                 </section>
 
-                <section id="legal-rights" className="scroll-mt-32">
+                <section id="revisions" className="scroll-mt-32">
                   <h2 className="flex items-center gap-3 text-2xl font-bold mb-6 text-gray-900 dark:text-white">
                     <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-sm text-indigo-600 dark:text-indigo-400">
                       5
                     </span>
-                    Your Legal Rights
+                    Revisions and Errata
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                    Under certain circumstances, you have rights under data
-                    protection laws in relation to your personal data:
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    The materials appearing on Lumina's website could include
+                    technical, typographical, or photographic errors. Lumina
+                    does not warrant that any of the materials on its website
+                    are accurate, complete, or current. Lumina may make changes
+                    to the materials contained on its website at any time
+                    without notice.
                   </p>
-                  <ul className="grid sm:grid-cols-2 gap-3">
-                    {[
-                      "Request access",
-                      "Request correction",
-                      "Request erasure",
-                      "Object to processing",
-                      "Request restriction",
-                      "Request transfer",
-                      "Withdraw consent",
-                    ].map((right, i) => (
-                      <li
-                        key={i}
-                        className="flex items-center gap-2 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-800"
-                      >
-                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
-                        {right}
-                      </li>
-                    ))}
-                  </ul>
                 </section>
 
-                <section id="contact" className="scroll-mt-32">
+                <section id="governing-law" className="scroll-mt-32">
                   <h2 className="flex items-center gap-3 text-2xl font-bold mb-6 text-gray-900 dark:text-white">
                     <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-sm text-indigo-600 dark:text-indigo-400">
                       6
                     </span>
-                    Contact Us
+                    Governing Law
                   </h2>
 
-                  <div className="bg-gray-900 text-white rounded-2xl p-8 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-0 right-0 p-8 opacity-10">
-                      <Shield className="w-32 h-32" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-4 relative z-10">
-                      Data Protection Officer
-                    </h3>
-                    <p className="text-gray-300 mb-8 relative z-10 max-w-lg">
-                      For specific questions regarding your personal data or to
-                      exercise your rights, please contact our dedicated DPO
-                      team.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 relative z-10">
-                      <a
-                        href="mailto:privacy@lumina.ai"
-                        className="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-                      >
-                        <Mail className="w-5 h-5" />
-                        Email DPO
-                      </a>
-                      <button className="inline-flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors border border-gray-700">
-                        View Compliance Certs
-                      </button>
+                  <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
+                    <div className="flex items-start gap-4">
+                      <Scale className="w-8 h-8 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
+                      <div>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                          Any claim relating to Lumina's website shall be
+                          governed by the laws of the State of Delaware without
+                          regard to its conflict of law provisions.
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          General Terms and Conditions applicable to Use of a
+                          Web Site.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -379,4 +331,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default TermsOfService;

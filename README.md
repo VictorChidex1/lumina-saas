@@ -42,6 +42,10 @@ A professional, high-performance landing page designed to convert:
   - **Blog Management**: Create, edit, and delete posts directly from the dashboard.
   - **Auto-Slug**: Intelligent URL generation based on post titles.
   - **Migration Tool**: One-click utility to upload demo content to the database.
+- **Privacy Policy Page (New)**:
+  - **Premium Styling**: Matches site aesthetic with custom gradients.
+  - **UX Enhancements**: Sticky Table of Contents and Reading Progress Bar.
+  - **Interactive Features**: Print/PDF support and DPO contact card.
 
 ## 🛠️ Tech Stack
 
