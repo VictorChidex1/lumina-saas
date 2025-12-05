@@ -153,18 +153,27 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
+        <div className="border-t border-gray-800 pt-8 flex flex-col-reverse md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-500 text-sm text-center md:text-left">
             © {currentYear} Lumina. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-500">
-            <Link to="/privacy" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3 text-sm text-gray-500 w-full md:w-auto">
+            <Link
+              to="/privacy"
+              className="hover:text-white transition-colors whitespace-nowrap"
+            >
               Privacy Policy
             </Link>
-            <Link to="/terms" className="hover:text-white transition-colors">
+            <Link
+              to="/terms"
+              className="hover:text-white transition-colors whitespace-nowrap"
+            >
               Terms of Service
             </Link>
-            <Link to="/cookies" className="hover:text-white transition-colors">
+            <Link
+              to="/cookies"
+              className="hover:text-white transition-colors whitespace-nowrap"
+            >
               Cookie Policy
             </Link>
           </div>
