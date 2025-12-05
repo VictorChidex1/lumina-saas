@@ -11,6 +11,7 @@ import CareersPage from "./pages/CareersPage";
 import AboutPage from "./pages/AboutPage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "@/components/ui/sonner";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
@@ -32,6 +33,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route
               path="/admin/*"
               element={
