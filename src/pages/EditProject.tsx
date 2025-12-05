@@ -95,16 +95,16 @@ export function EditProject() {
   return (
     <DashboardLayout>
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <Button
             variant="ghost"
             onClick={() => navigate("/dashboard/projects")}
-            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white self-start md:self-auto pl-0 md:pl-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Projects
           </Button>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full md:w-auto">
             <select
               value={project.status}
               onChange={async (e) => {
@@ -118,7 +118,7 @@ export function EditProject() {
                   toast.error("Failed to update status");
                 }
               }}
-              className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 md:flex-none bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="Draft">Draft</option>
               <option value="In Progress">In Progress</option>
@@ -127,7 +127,7 @@ export function EditProject() {
             <Button
               onClick={handleSave}
               disabled={saving}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white min-w-[120px]"
+              className="flex-1 md:flex-none bg-indigo-600 hover:bg-indigo-700 text-white min-w-[120px]"
             >
               {saving ? (
                 <Loader2 className="w-4 h-4 animate-spin" />

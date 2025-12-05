@@ -40,7 +40,7 @@ Lumina is a modern SaaS platform designed for AI-powered content generation. It 
 - **Profile Management**: Users can upload avatars (Base64 encoded), update names, and manage security settings (2FA UI, Password change).
 - **Dashboard**:
   - **Overview**: Usage stats, recent activity feed.
-  - **Projects**: Full CRUD (Create, Read, Update, Delete) for content projects.
+  - **Projects**: Full CRUD with clickable cards and responsive grid layout.
   - **Settings**: Comprehensive settings for Account, Security, Billing, and Display.
 
 ### 3. AI Content Generation (The Core)

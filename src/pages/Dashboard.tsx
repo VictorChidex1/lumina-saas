@@ -13,9 +13,10 @@ import {
   ArrowRight,
   MoreHorizontal,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Dashboard() {
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   const quickActions = [
@@ -183,7 +184,10 @@ export function Dashboard() {
                     recentProjects.map((project) => (
                       <div
                         key={project.id}
-                        className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex items-center justify-between group"
+                        onClick={() =>
+                          navigate(`/dashboard/projects/${project.id}`)
+                        }
+                        className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex items-center justify-between group cursor-pointer"
                       >
                         <div className="flex items-center gap-4">
                           <div className="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">

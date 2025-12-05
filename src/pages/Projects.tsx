@@ -10,13 +10,16 @@ import {
   Calendar,
   Trash2,
   Pencil,
+  Instagram,
+  Video,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { getUserProjects, deleteProject, type Project } from "@/lib/projects";
 
 export function Projects() {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [filter, setFilter] = useState("All");
   const [projects, setProjects] = useState<Project[]>([]);
@@ -111,9 +114,9 @@ export function Projects() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.length === 0 ? (
-            <div className="text-center py-20 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+            <div className="col-span-full text-center py-20 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
               <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No projects found
@@ -131,10 +134,11 @@ export function Projects() {
                 key={project.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-500 dark:hover:border-indigo-500/50 transition-all group cursor-pointer"
+                onClick={() => navigate(`/dashboard/projects/${project.id}`)}
+                className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-500 dark:hover:border-indigo-500/50 hover:shadow-md transition-all group cursor-pointer flex flex-col justify-between h-full"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
+                <div>
+                  <div className="flex items-start justify-between mb-4">
                     <div className="w-12 h-12 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
                       {project.platform === "twitter" ? (
                         <Twitter className="w-6 h-6" />
@@ -142,34 +146,15 @@ export function Projects() {
                         <Linkedin className="w-6 h-6" />
                       ) : project.platform === "email" ? (
                         <Mail className="w-6 h-6" />
+                      ) : project.platform === "instagram" ? (
+                        <Instagram className="w-6 h-6" />
+                      ) : project.platform === "tiktok" ||
+                        project.platform === "youtube" ? (
+                        <Video className="w-6 h-6" />
                       ) : (
                         <FileText className="w-6 h-6" />
                       )}
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        <span className="flex items-center gap-1 capitalize">
-                          {project.platform}
-                        </span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {project.createdAt?.seconds
-                            ? new Date(
-                                project.createdAt.seconds * 1000
-                              ).toLocaleDateString()
-                            : "Just now"}
-                        </span>
-                        <span>•</span>
-                        <span>{project.words} words</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${
                         project.status === "Completed"
@@ -181,11 +166,31 @@ export function Projects() {
                     >
                       {project.status}
                     </span>
-                    <Link to={`/dashboard/projects/${project.id}`}>
-                      <button className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
-                        <Pencil className="w-5 h-5" />
-                      </button>
-                    </Link>
+                  </div>
+
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-2 line-clamp-2">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-3 mb-4">
+                    {project.content}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800 mt-auto">
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <Calendar className="w-3 h-3" />
+                    {project.createdAt?.seconds
+                      ? new Date(
+                          project.createdAt.seconds * 1000
+                        ).toLocaleDateString()
+                      : "Just now"}
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <button className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
+                      <Pencil className="w-4 h-4" />
+                    </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -193,7 +198,7 @@ export function Projects() {
                       }}
                       className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                     >
-                      <Trash2 className="w-5 h-5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
