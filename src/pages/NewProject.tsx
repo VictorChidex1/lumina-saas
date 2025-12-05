@@ -14,6 +14,9 @@ import {
   Sparkles,
   CheckCircle2,
   Loader2,
+  Instagram,
+  Video,
+  Youtube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
@@ -51,6 +54,24 @@ export function NewProject() {
       name: "Email Newsletter",
       icon: Mail,
       color: "bg-purple-500",
+    },
+    {
+      id: "instagram",
+      name: "Instagram Caption",
+      icon: Instagram,
+      color: "bg-pink-500",
+    },
+    {
+      id: "tiktok",
+      name: "TikTok Script",
+      icon: Video,
+      color: "bg-black",
+    },
+    {
+      id: "youtube",
+      name: "YouTube Video Script",
+      icon: Youtube,
+      color: "bg-red-600",
     },
   ];
 
