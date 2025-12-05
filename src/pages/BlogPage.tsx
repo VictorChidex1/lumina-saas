@@ -24,6 +24,9 @@ const BlogPage = () => {
   const categories = ["All", "AI & Tech", "Design", "Engineering", "Culture"];
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const postsPerPage = 7;
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -45,6 +48,29 @@ const BlogPage = () => {
     fetchPosts();
   }, []);
 
+  // Filter Posts
+  const filteredPosts =
+    selectedCategory === "All"
+      ? posts
+      : posts.filter((post) => post.category === selectedCategory);
+
+  // Pagination Logic
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1); // Reset to first page when filtering
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center">
@@ -53,8 +79,8 @@ const BlogPage = () => {
     );
   }
 
-  const featuredPost = posts[0];
-  const gridPosts = posts.slice(1);
+  const featuredPost = currentPosts[0];
+  const gridPosts = currentPosts.slice(1);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans selection:bg-indigo-100 dark:selection:bg-indigo-900/30 selection:text-indigo-900 dark:selection:text-indigo-100 flex flex-col">
@@ -105,8 +131,9 @@ const BlogPage = () => {
               {categories.map((category, index) => (
                 <button
                   key={index}
+                  onClick={() => handleCategoryChange(category)}
                   className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    index === 0
+                    selectedCategory === category
                       ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30"
                       : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700"
                   }`}
@@ -116,13 +143,13 @@ const BlogPage = () => {
               ))}
             </div>
 
-            {posts.length === 0 ? (
+            {filteredPosts.length === 0 ? (
               <div className="text-center py-20">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   No posts found
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Check back later for updates!
+                  Try selecting a different category.
                 </p>
               </div>
             ) : (
@@ -130,6 +157,7 @@ const BlogPage = () => {
                 {/* Featured Post */}
                 {featuredPost && (
                   <motion.div
+                    key={featuredPost.id}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -246,15 +274,30 @@ const BlogPage = () => {
                   ))}
                 </div>
 
-                <div className="mt-20 text-center">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="rounded-full px-8 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                    Load More Articles
-                  </Button>
-                </div>
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center gap-4 mt-20">
+                    <Button
+                      variant="outline"
+                      onClick={() => paginate(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="border-gray-300 dark:border-gray-700 disabled:opacity-50"
+                    >
+                      Previous
+                    </Button>
+                    <span className="text-gray-600 dark:text-gray-400 font-medium">
+                      Page {currentPage} of {totalPages}
+                    </span>
+                    <Button
+                      variant="outline"
+                      onClick={() => paginate(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="border-gray-300 dark:border-gray-700 disabled:opacity-50"
+                    >
+                      Next
+                    </Button>
+                  </div>
+                )}
               </>
             )}
           </div>

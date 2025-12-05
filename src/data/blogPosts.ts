@@ -215,4 +215,141 @@ export const blogPosts: BlogPost[] = [
     category: "AI & Tech",
     image: "/transformer-models.png",
   },
+  {
+    slug: "ai-in-healthcare-revolution",
+    title: "AI in Healthcare: A Revolution in Diagnosis",
+    excerpt:
+      "How artificial intelligence is assisting doctors in early detection and personalized treatment plans.",
+    content: `
+      <p>The integration of AI into healthcare is saving lives. From analyzing medical imaging to predicting patient outcomes, algorithms are becoming vital members of the medical team.</p>
+      <h2>Early Detection</h2>
+      <p>AI models trained on millions of X-rays and MRI scans can detect anomalies like tumors often before they are visible to the human eye. This early detection is critical for improving survival rates in diseases like cancer.</p>
+      <h2>Personalized Medicine</h2>
+      <p>By analyzing a patient's genetic makeup and medical history, AI can help tailor treatment plans that are far more effective than the traditional "one size fits all" approach.</p>
+      <h2>Administrative Efficiency</h2>
+      <p>Beyond clinical applications, AI is streamlining hospital operations, reducing wait times, and managing resources more efficiently, allowing doctors to spend more time with patients.</p>
+    `,
+    author: "Dr. Elena Rodriguez",
+    date: "Oct 28, 2025",
+    readTime: "7 min read",
+    category: "AI & Tech",
+    image: "/ai-healthcare.png",
+  },
+  {
+    slug: "rise-of-edge-ai",
+    title: "The Rise of Edge AI",
+    excerpt:
+      "Why processing data locally on devices is the next big shift in artificial intelligence.",
+    content: `
+      <p>Cloud computing has driven the AI boom, but the future is on the edge. Edge AI involves running algorithms locally on devices—smartphones, IoT sensors, and cars—rather than sending data to a centralized server.</p>
+      <h2>Privacy First</h2>
+      <p>By keeping sensitive data on the device, Edge AI mitigates privacy concerns. Your voice assistant commands or smart home footage doesn't need to leave your house.</p>
+      <h2>Zero Latency</h2>
+      <p>For applications like autonomous driving, milliseconds matter. Edge AI eliminates the round-trip time to the cloud, enabling instant decision-making.</p>
+      <h2>Bandwidth Efficiency</h2>
+      <p>Transmitting massive amounts of video or sensor data to the cloud is expensive and bandwidth-intensive. Edge AI filters and processes this data locally, sending only what's necessary.</p>
+    `,
+    author: "Marcus Chen",
+    date: "Oct 25, 2025",
+    readTime: "6 min read",
+    category: "Engineering",
+    image: "/edge-ai.png",
+  },
+  {
+    slug: "minimalism-in-digital-design",
+    title: "Minimalism in Digital Product Design",
+    excerpt:
+      "Less is more: How cutting clutter improves user engagement and conversion rates.",
+    content: `
+      <p>In a world of information overload, minimalism is not just an aesthetic choice; it's a functional necessity. Good design should interpret the user's intent and clear the path to their goal.</p>
+      <h2>The Cognitive Load</h2>
+      <p>Every element on a screen—every button, image, and text block—adds to the user's cognitive load. By removing non-essential elements, we allow the user to focus on what matters.</p>
+      <h2>Whitespace is Active</h2>
+      <p>Whitespace (or negative space) is not empty space; it's an active design element. It guides the eye, creates hierarchy, and gives the content room to breathe.</p>
+      <h2>Function over Form</h2>
+      <p>Minimalism forces designers to prioritize function. If a feature doesn't serve a clear purpose, it gets cut. This ruthless prioritization leads to leaner, faster, and more intuitive products.</p>
+    `,
+    author: "Sophie Dubois",
+    date: "Oct 20, 2025",
+    readTime: "5 min read",
+    category: "Design",
+    image: "/minimalism-design.png",
+  },
+  {
+    slug: "navigating-remote-work-culture",
+    title: "Navigating Remote Work Culture",
+    excerpt:
+      "Strategies for building strong, cohesive teams in a distributed world.",
+    content: `
+      <p>Remote work is here to stay. But building a culture without a watercooler requires intentionality. It's about more than just Zoom calls and Slack channels.</p>
+      <h2>Asynchronous Communication</h2>
+      <p>The superpower of distributed teams is async work. Documenting everything—decisions, specs, and updates—allows people to work deep without constant interruption.</p>
+      <h2>Intentional Connection</h2>
+      <p>We need to create spaces for serendipity. Virtual coffee chats, game nights, and dedicated channels for non-work hobbies help bridge the physical gap.</p>
+      <h2>Trust and Autonomy</h2>
+      <p>Remote work thrives on trust. measuring output rather than hours logged empowers employees to own their schedules and their work.</p>
+    `,
+    author: "James Wilson",
+    date: "Oct 15, 2025",
+    readTime: "8 min read",
+    category: "Culture",
+    image: "/remote-work.png",
+  },
+  {
+    slug: "understanding-rag",
+    title: "Understanding RAG (Retrieval-Augmented Generation)",
+    excerpt:
+      "How RAG bridges the gap between LLM knowledge and your private data.",
+    content: `
+      <p>Large Language Models are frozen in time. They don't know about your company's latest PDF or the news from this morning. RAG solves this by giving the model a "cheat sheet" of relevant information before it answers.</p>
+      <h2>How It Works</h2>
+      <p>1. <strong>Retrieve:</strong> The system searches a vector database for documents relevant to the user's query.<br>2. <strong>Augment:</strong> These documents are pasted into the prompt as context.<br>3. <strong>Generate:</strong> The LLM answers the question using this fresh context.</p>
+      <h2>Why It Matters</h2>
+      <p>RAG allows businesses to build AI chatbots that are accurate, up-to-date, and grounded in their own proprietary data, drastically reducing hallucinations.</p>
+    `,
+    author: "Priya Patel",
+    date: "Oct 10, 2025",
+    readTime: "9 min read",
+    category: "Engineering",
+    image: "/rag-architecture.png",
+  },
+  {
+    slug: "future-of-saas-pricing",
+    title: "The Future of SaaS Pricing: Usage-Based vs. Seat-Based",
+    excerpt:
+      "Why the subscription model is evolving and what it means for growth.",
+    content: `
+      <p>The traditional "per seat" pricing model is under pressure. As AI automates more work, buying seats for humans makes less sense. Enter usage-based pricing.</p>
+      <h2>Aligning Value with Cost</h2>
+      <p>Usage-based pricing (charging per API call, per gigabyte, or per transaction) aligns the customer's success with the vendor's revenue. If they use the product more, they get more value, and they pay more.</p>
+      <h2>The Hybrid Model</h2>
+      <p>Many modern SaaS companies are adopting a hybrid approach: a flat platform fee for core features + usage fees for premium AI or compute-heavy features.</p>
+      <h2>Transparency</h2>
+      <p>This shift requires transparent metering and billing. Customers need to know exactly what they are paying for in real-time to avoid "bill shock."</p>
+    `,
+    author: "Michael Ross",
+    date: "Oct 5, 2025",
+    readTime: "6 min read",
+    category: "AI & Tech",
+    image: "/saas-pricing.png",
+  },
+  {
+    slug: "creative-coding-art",
+    title: "Creative Coding: Where Art Meets Algorithms",
+    excerpt: "Exploring the intersection of programming and visual expression.",
+    content: `
+      <p>Creative coding is the practice of writing code for the purpose of expression rather than function. It's where logic meets poetry.</p>
+      <h2>Tools of the Trade</h2>
+      <p>Libraries like p5.js, Three.js, and processing allow developers to create stunning generative art, interactive installations, and data visualizations directly in the browser.</p>
+      <h2>Algorithmic Beauty</h2>
+      <p>Writing algorithms to generate visuals reveals the mathematical beauty inherent in nature. Fractals, noise functions, and particle systems mimic the organic world in digital form.</p>
+      <h2>Why Learn It?</h2>
+      <p>Even for backend engineers, creative coding is a playground. It teaches lateral thinking, optimization, and the pure joy of seeing your code come to life visually.</p>
+    `,
+    author: "Sarah Chen",
+    date: "Oct 1, 2025",
+    readTime: "5 min read",
+    category: "Design",
+    image: "/creative-coding.png",
+  },
 ];
