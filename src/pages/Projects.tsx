@@ -9,6 +9,7 @@ import {
   Mail,
   Calendar,
   Trash2,
+  Pencil,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -168,7 +169,7 @@ export function Projects() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${
                         project.status === "Completed"
@@ -180,6 +181,11 @@ export function Projects() {
                     >
                       {project.status}
                     </span>
+                    <Link to={`/dashboard/projects/${project.id}`}>
+                      <button className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors">
+                        <Pencil className="w-5 h-5" />
+                      </button>
+                    </Link>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();

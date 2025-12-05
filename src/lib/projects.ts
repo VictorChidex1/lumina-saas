@@ -71,3 +71,36 @@ export const deleteProject = async (projectId: string) => {
     throw error;
   }
 };
+
+export const getProject = async (
+  projectId: string
+): Promise<Project | null> => {
+  try {
+    const docRef = doc(db, "projects", projectId);
+    const docSnap = await import("firebase/firestore").then((m) =>
+      m.getDoc(docRef)
+    );
+
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() } as Project;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting project: ", error);
+    throw error;
+  }
+};
+
+export const updateProject = async (
+  projectId: string,
+  data: Partial<Project>
+) => {
+  try {
+    const docRef = doc(db, "projects", projectId);
+    await import("firebase/firestore").then((m) => m.updateDoc(docRef, data));
+  } catch (error) {
+    console.error("Error updating project: ", error);
+    throw error;
+  }
+};
