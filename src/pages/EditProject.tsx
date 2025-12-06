@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { getProject, updateProject, type Project } from "@/lib/projects";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function EditProject() {
   const { id } = useParams<{ id: string }>();
@@ -89,8 +90,35 @@ export function EditProject() {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+        <div className="max-w-4xl mx-auto">
+          {/* Header Skeleton */}
+          <div className="flex justify-between items-center mb-6">
+            <Skeleton className="h-10 w-32" />
+            <div className="flex gap-2">
+              <Skeleton className="h-10 w-24 hidden md:block" />
+              <Skeleton className="h-10 w-24 hidden md:block" />
+              <Skeleton className="h-10 w-32" />
+              <Skeleton className="h-10 w-24" />
+            </div>
+          </div>
+
+          {/* Main Content Skeleton */}
+          <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 flex items-center gap-4">
+              <Skeleton className="h-12 w-12 rounded-lg" />
+              <div className="flex-1 space-y-2">
+                <Skeleton className="h-8 w-1/2" />
+                <Skeleton className="h-4 w-1/4" />
+              </div>
+            </div>
+            <div className="p-6 space-y-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-4 w-4/6" />
+              <Skeleton className="h-32 w-full rounded-xl" />
+            </div>
+          </div>
         </div>
       </DashboardLayout>
     );

@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { getUserProjects, deleteProject, type Project } from "@/lib/projects";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function Projects() {
   const navigate = useNavigate();
@@ -60,8 +61,53 @@ export function Projects() {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="max-w-6xl mx-auto">
+          {/* Header Skeleton */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+              <Skeleton className="h-10 w-48 mb-2" />
+              <Skeleton className="h-4 w-64" />
+            </div>
+            <Skeleton className="h-10 w-32" />
+          </div>
+
+          {/* Filters Skeleton */}
+          <div className="flex flex-col md:flex-row gap-4 mb-6">
+            <Skeleton className="h-10 flex-1 rounded-lg" />
+            <div className="flex gap-2">
+              <Skeleton className="h-10 w-20 rounded-lg" />
+              <Skeleton className="h-10 w-20 rounded-lg" />
+              <Skeleton className="h-10 w-20 rounded-lg" />
+            </div>
+          </div>
+
+          {/* Grid Skeleton */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={i}
+                className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800 flex flex-col justify-between h-[250px]"
+              >
+                <div>
+                  <div className="flex items-start justify-between mb-4">
+                    <Skeleton className="h-12 w-12 rounded-lg" />
+                    <Skeleton className="h-6 w-20 rounded-full" />
+                  </div>
+                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-full mb-1" />
+                  <Skeleton className="h-4 w-full mb-1" />
+                  <Skeleton className="h-4 w-2/3" />
+                </div>
+                <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-100 dark:border-gray-800">
+                  <Skeleton className="h-4 w-24" />
+                  <div className="flex gap-1">
+                    <Skeleton className="h-8 w-8 rounded-lg" />
+                    <Skeleton className="h-8 w-8 rounded-lg" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </DashboardLayout>
     );
