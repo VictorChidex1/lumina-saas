@@ -64,7 +64,7 @@ ${this.customData.serverResponse}`:this.message=this._baseMessage}}var Gs;(funct
     - If it's a LinkedIn Post, use professional formatting and hashtags.
     - If it's a Blog Post, include a catchy title and clear headings.
     - If it's an Email, include a subject line.
-    - If it's an Instagram Caption, include engaging emojis, 20-30 relevant hashtags, and a short script idea for a Reel/Story if applicable.
+    - If it's an Instagram Caption, include engagement emojis, 20-30 relevant hashtags, and a short script idea for a Reel/Story if applicable.
     - If it's a TikTok Script, provide a scene-by-scene breakdown with visual cues and dialogue.
     - If it's a YouTube Video Script, include a hook, intro, body paragraphs with visual cues, and a strong call-to-action (CTA).
     
