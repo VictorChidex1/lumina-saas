@@ -26,11 +26,12 @@ export const generateContent = async (
     Make it engaging, high-quality, and ready to post.
   `;
 
-  // List of models and versions to try (based on available models for this key)
+  // List of models and versions to try (Verified available models)
   const strategies = [
-    { model: "gemini-2.0-flash", version: "v1beta" },
-    { model: "gemini-flash-latest", version: "v1beta" },
-    { model: "gemini-pro-latest", version: "v1beta" },
+    { model: "gemini-2.0-flash", version: "v1beta" }, // Primary: Fast & Stable
+    { model: "gemini-2.0-pro-exp", version: "v1beta" }, // Premium: High Intelligence (Requested)
+    { model: "gemini-2.0-flash-exp", version: "v1beta" }, // Backup: Experimental Flash
+    { model: "gemini-flash-latest", version: "v1beta" }, // Fallback: Generic
   ];
 
   let lastError: any = null;
@@ -56,6 +57,18 @@ export const generateContent = async (
           `${strategy.model} (${strategy.version}) failed:`,
           errorData
         );
+
+        // Critical: If key is invalid/leaked, stop trying other models to avoid spamming errors
+        if (
+          response.status === 403 &&
+          (errorData.error?.message?.includes("leaked") ||
+            errorData.error?.message?.includes("API key"))
+        ) {
+          throw new Error(
+            "CRITICAL: Your API key has been flagged as LEAKED by Google. You must generate a new one at aistudio.google.com."
+          );
+        }
+
         throw new Error(
           errorData.error?.message ||
             `API Error: ${response.status} ${response.statusText}`
@@ -79,7 +92,12 @@ export const generateContent = async (
         error.message
       );
       lastError = error;
-      // Continue to next strategy
+
+      // If it was the critical leaked key error, rethrow immediately to notify user
+      if (error.message.includes("LEAKED")) {
+        throw error;
+      }
+      // Otherwise continue to next strategy
     }
   }
 
@@ -107,39 +125,87 @@ export const refineContent = async (
     output ONLY the rewritten text. Do not include any explanations or quotes.
   `;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`;
+  // List of models and versions to try (Verified available models)
+  const strategies = [
+    { model: "gemini-2.0-flash", version: "v1beta" }, // Primary: Fast & Stable
+    { model: "gemini-2.0-pro-exp", version: "v1beta" }, // Premium: High Intelligence (Requested)
+    { model: "gemini-2.0-flash-exp", version: "v1beta" }, // Backup: Experimental Flash
+    { model: "gemini-flash-latest", version: "v1beta" }, // Fallback: Generic
+  ];
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-      }),
-    });
+  const safetySettings = [
+    { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
+    { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
+    {
+      category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+      threshold: "BLOCK_ONLY_HIGH",
+    },
+    {
+      category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+      threshold: "BLOCK_ONLY_HIGH",
+    },
+  ];
 
-    if (!response.ok) {
-      throw new Error("Failed to refine content");
-    }
+  let lastError: any = null;
 
-    const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
-  } catch (error) {
-    console.warn("Refinement failed, trying backup model...");
-    // Simple fallback to pro model if flash fails
+  for (const strategy of strategies) {
     try {
-      const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
-      const response = await fetch(fallbackUrl, {
+      const url = `https://generativelanguage.googleapis.com/${strategy.version}/models/${strategy.model}:generateContent?key=${API_KEY}`;
+
+      const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          safetySettings: safetySettings,
+        }),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error?.message || `Model ${strategy.model} failed`
+        );
+      }
+
       const data = await response.json();
+
+      // Check for safety blocks
+      if (data.promptFeedback && data.promptFeedback.blockReason) {
+        throw new Error(
+          `Blocked by safety filter: ${data.promptFeedback.blockReason}`
+        );
+      }
+
+      if (
+        !data.candidates ||
+        !data.candidates[0] ||
+        !data.candidates[0].content
+      ) {
+        if (
+          data.candidates &&
+          data.candidates[0] &&
+          data.candidates[0].finishReason
+        ) {
+          throw new Error(
+            `Generation stopped: ${data.candidates[0].finishReason}`
+          );
+        }
+        throw new Error("Invalid response from AI");
+      }
+
       return data.candidates[0].content.parts[0].text;
-    } catch (e) {
-      throw new Error("Failed to refine content. Please try again.");
+    } catch (error) {
+      console.warn(`Strategy ${strategy.model} failed:`, error);
+      lastError = error;
+      // Continue to next model
     }
   }
+
+  // If all failed, throw the last meaningful error
+  throw new Error(
+    lastError?.message || "Failed to refine text. Please try again."
+  );
 };

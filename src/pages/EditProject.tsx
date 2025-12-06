@@ -140,7 +140,9 @@ export function EditProject() {
       toast.success("Magic Edit complete! ✨");
     } catch (error) {
       console.error(error);
-      toast.error("Failed to refine text.");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to refine text."
+      );
     } finally {
       setSaving(false);
     }
