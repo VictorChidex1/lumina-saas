@@ -28,7 +28,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     { name: "Team", href: "/dashboard/team", icon: Users },
     { name: "Reports", href: "/reports", icon: PieChart },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
-    { name: "Help & Support", href: "/support", icon: HelpCircle },
+    { name: "Help & Support", href: "/dashboard/support", icon: HelpCircle },
   ];
 
   const SidebarContent = () => (

@@ -7,6 +7,7 @@ import { Settings } from "./pages/Settings";
 import { NewProject } from "./pages/NewProject";
 import { Projects } from "./pages/Projects";
 import { EditProject } from "./pages/EditProject";
+import { SupportPage } from "./pages/SupportPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import ContactPage from "./pages/ContactPage";
@@ -96,6 +97,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <EditProject />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/support"
+              element={
+                <ProtectedRoute>
+                  <SupportPage />
                 </ProtectedRoute>
               }
             />
