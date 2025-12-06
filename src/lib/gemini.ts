@@ -89,3 +89,57 @@ export const generateContent = async (
       "Failed to generate content. Please check your API key."
   );
 };
+
+export const refineContent = async (
+  content: string,
+  instruction: string
+): Promise<string> => {
+  if (!API_KEY) {
+    throw new Error("Gemini API Key is missing");
+  }
+
+  const prompt = `
+    You are an expert editor. Rewrite the following text based on this instruction: "${instruction}".
+    
+    ORIGINAL TEXT:
+    "${content}"
+    
+    output ONLY the rewritten text. Do not include any explanations or quotes.
+  `;
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to refine content");
+    }
+
+    const data = await response.json();
+    return data.candidates[0].content.parts[0].text;
+  } catch (error) {
+    console.warn("Refinement failed, trying backup model...");
+    // Simple fallback to pro model if flash fails
+    try {
+      const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+      const response = await fetch(fallbackUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+      });
+      const data = await response.json();
+      return data.candidates[0].content.parts[0].text;
+    } catch (e) {
+      throw new Error("Failed to refine content. Please try again.");
+    }
+  }
+};

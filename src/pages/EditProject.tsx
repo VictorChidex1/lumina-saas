@@ -10,10 +10,14 @@ import {
   Twitter,
   Linkedin,
   Mail,
+  Sparkles,
+  Scissors,
+  MoreHorizontal,
+  Briefcase,
+  Zap,
 } from "lucide-react";
 import { getProject, updateProject, type Project } from "@/lib/projects";
 import { toast } from "sonner";
-import { useAuth } from "@/context/AuthContext";
 
 export function EditProject() {
   const { id } = useParams<{ id: string }>();
@@ -103,10 +107,49 @@ export function EditProject() {
       ? Mail
       : FileText;
 
+  // Magic Edit Logic
+  const handleMagicEdit = async (instruction: string) => {
+    const textarea = document.querySelector(
+      "textarea[placeholder='Start writing or use Magic Edit to generate content...']"
+    ) as HTMLTextAreaElement;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = formData.content.substring(start, end);
+
+    if (!selectedText || selectedText.trim().length === 0) {
+      toast.error("Please select some text to edit first!");
+      return;
+    }
+
+    setSaving(true);
+    toast.info("Refining your text...");
+
+    try {
+      const { refineContent } = await import("@/lib/gemini");
+      const refinedText = await refineContent(selectedText, instruction);
+
+      // Optimistic Update
+      const newContent =
+        formData.content.substring(0, start) +
+        refinedText.trim() +
+        formData.content.substring(end);
+
+      setFormData({ ...formData, content: newContent });
+      toast.success("Magic Edit complete! ✨");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to refine text.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <Button
             variant="ghost"
             onClick={() => navigate("/dashboard/projects")}
@@ -115,13 +158,61 @@ export function EditProject() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Projects
           </Button>
-          <div className="flex items-center gap-3 w-full md:w-auto">
+
+          {/* Magic Actions Bar */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 hide-scrollbar scroll-smooth">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider mr-2 hidden md:block">
+              Magic Edit:
+            </span>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => handleMagicEdit("Improve writing quality")}
+            >
+              <Sparkles className="w-3 h-3 mr-1 text-indigo-500" /> Improve
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                handleMagicEdit("Make it shorter and more concise")
+              }
+            >
+              <Scissors className="w-3 h-3 mr-1 text-blue-500" /> Shorten
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                handleMagicEdit("Make it longer and more detailed")
+              }
+            >
+              <MoreHorizontal className="w-3 h-3 mr-1 text-green-500" /> Expand
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => handleMagicEdit("Make the tone more professional")}
+            >
+              <Briefcase className="w-3 h-3 mr-1 text-purple-500" />{" "}
+              Professional
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => handleMagicEdit("Make the tone fun and witty")}
+            >
+              <Zap className="w-3 h-3 mr-1 text-yellow-500" /> Fun
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-3 w-full md:w-auto mt-2 md:mt-0">
+            {/* Status Select (Previous Code) */}
             <select
               value={project.status}
               onChange={async (e) => {
                 const newStatus = e.target.value as Project["status"];
                 setProject({ ...project, status: newStatus });
-                // Auto-save status change
                 try {
                   await updateProject(id!, { status: newStatus });
                   toast.success(`Status updated to ${newStatus}`);
@@ -145,7 +236,7 @@ export function EditProject() {
               ) : (
                 <>
                   <Save className="w-4 h-4 mr-2" />
-                  Save Changes
+                  Save
                 </>
               )}
             </Button>
@@ -188,7 +279,7 @@ export function EditProject() {
                 setFormData({ ...formData, content: e.target.value })
               }
               className="w-full min-h-[500px] p-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all resize-y text-lg leading-relaxed text-gray-800 dark:text-gray-200 font-serif"
-              placeholder="Start writing..."
+              placeholder="Start writing or use Magic Edit to generate content..."
             />
           </div>
         </div>
