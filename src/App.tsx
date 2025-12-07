@@ -9,6 +9,7 @@ import { Projects } from "./pages/Projects";
 import { EditProject } from "./pages/EditProject";
 import { SupportPage } from "./pages/SupportPage";
 import { GettingStartedPage } from "./pages/GettingStartedPage";
+import { ApiDocsPage } from "./pages/ApiDocsPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import ContactPage from "./pages/ContactPage";
@@ -114,6 +115,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <GettingStartedPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/docs/api"
+              element={
+                <ProtectedRoute>
+                  <ApiDocsPage />
                 </ProtectedRoute>
               }
             />

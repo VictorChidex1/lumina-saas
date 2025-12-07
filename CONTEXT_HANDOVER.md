@@ -57,6 +57,19 @@ Lumina is a modern SaaS platform designed for AI-powered content generation. It 
 - **Blog Editor**: Markdown-based editor for creating and managing blog posts.
 - **Hiring Portal**: View and manage job applications submitted via the Careers page.
 
+### 5. Help & Support Ecosystem
+
+- **Dedicated Support Page**: Central hub for FAQs, documentation links, and contact options.
+- **Getting Started Wizard**:
+  - **Video Hero**: Embedded product tour.
+  - **Zig-Zag Layout**: Visual-heavy onboarding guide using alternately aligned text and screenshots.
+  - **Deep Listing**: Correctly routed and protected (`/dashboard/getting-started`).
+
+### 6. UX Enhancements
+
+- **Skeleton Loaders**: Replaced basic spinners with shimmering skeleton UI for "Projects List" and "Editor" to improve perceived performance.
+- **Animations**: Extended Framer Motion usage to Support Deck cards (staggered entrance).
+
 ---
 
 ## 🐛 Debugging Log (Critical Issues Fixed)
@@ -92,6 +105,15 @@ Lumina is a modern SaaS platform designed for AI-powered content generation. It 
 
 - **Issue**: Horizontal scrolling (overflow) on mobile devices.
 - **Fix**: Adjusted `max-w` classes and padding in the Navbar and Hero sections to ensure content fits within the viewport.
+
+### 6. API Key Security (Strategic Pivot)
+
+- **Issue**: Need to secure Gemini API key without incurring Firebase Functions costs (Blaze Plan).
+- **Previous Attempt**: Migrated to Firebase Functions (`onCall`), but hit billing wall.
+- **Final Solution**:
+  - Reverted to Client-Side API calls for free tier usage.
+  - **Security Layer**: Configured Google Cloud Console **HTTP Referrer Restrictions**.
+  - **Result**: API key is now strictly locked to `localhost`, `lumina-saas.vercel.app`, and `victorchidex1.github.io`. Stolen keys cannot be used elsewhere.
 
 ---
 

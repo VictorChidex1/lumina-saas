@@ -40,7 +40,7 @@ export function SupportPage() {
         "Technical documentation for integrating Lumina into your workflow.",
       icon: FileText,
       color: "bg-purple-500",
-      link: "/docs/api",
+      link: "/dashboard/docs/api",
     },
     {
       title: "Community Forum",

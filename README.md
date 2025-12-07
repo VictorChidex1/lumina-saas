@@ -34,6 +34,12 @@ A professional, high-performance landing page designed to convert:
 - **Contact Page**:
   - **Split Layout**: Professional design with "What to expect" guidelines.
   - **Validation**: Real-time form validation and user feedback.
+- **Help & Support Ecosystem (New)**:
+  - **Support Dashboard**: Central hub (`/dashboard/support`) with quick access to resources and FAQs.
+  - **Getting Started Guide (v2.0)**:
+    - **Video Integration**: Embedded YouTube product tour.
+    - **Visual Timeline**: "Zig-Zag" layout with real screenshots for onboarding.
+    - **Interactive Deck**: Direct navigation to key documentation.
 
 ## 🤖 AI Content Generation
 
@@ -42,6 +48,7 @@ Lumina is powered by **Google Gemini 2.0**.
 - **Smart Generation**: Creates blog posts, social media content, and emails based on your topic and tone.
 - **Model Strategy**: Automatically falls back between `gemini-2.0-flash`, `gemini-flash-latest`, and `gemini-pro` to ensure reliability.
 - **Direct Integration**: Uses the raw REST API for maximum stability and performance.
+- **Security**: API key is restricted via **Google Cloud HTTP Referrer** settings (locked to trusted domains) to prevent unauthorized usage while keeping the app serverless.
 
 ### Environment Variables
 
