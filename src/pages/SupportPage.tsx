@@ -37,7 +37,7 @@ export function SupportPage() {
     {
       title: "API Documentation",
       description:
-        "Technical documentation for integrating Lumina into your workflow.",
+        "Technical documentation for integrating Novluma into your workflow.",
       icon: FileText,
       color: "bg-purple-500",
       link: "/dashboard/docs/api",
@@ -84,7 +84,7 @@ export function SupportPage() {
             Help & Support
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">
-            Find answers, learn how to use Lumina, or get in touch with our
+            Find answers, learn how to use Novluma, or get in touch with our
             team.
           </p>
         </div>

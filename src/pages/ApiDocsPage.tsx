@@ -35,7 +35,7 @@ export function ApiDocsPage() {
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-800" />
             <h1 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
               <Terminal className="w-4 h-4 text-indigo-500" />
-              Lumina API{" "}
+              Novluma API{" "}
               <span className="text-gray-400 font-normal">v1.0-beta</span>
             </h1>
           </div>
@@ -126,7 +126,7 @@ export function ApiDocsPage() {
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                          Coming Soon to Lumina Users
+                          Coming Soon to Novluma Users
                         </h3>
                         <p className="text-gray-600 dark:text-gray-400">
                           You are viewing the{" "}
@@ -143,7 +143,7 @@ export function ApiDocsPage() {
                   Introduction
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6">
-                  Welcome to the Lumina API documentation (Preview). Once live,
+                  Welcome to the Novluma API documentation (Preview). Once live,
                   our API will allow you to build AI-powered content generation
                   directly into your own applications, workflows, and CMS.
                 </p>
@@ -166,8 +166,8 @@ export function ApiDocsPage() {
                   Authentication
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6">
-                  The Lumina API uses API keys to authenticate requests. You can
-                  view and manage your API keys in the Dashboard Settings.
+                  The Novluma API uses API keys to authenticate requests. You
+                  can view and manage your API keys in the Dashboard Settings.
                 </p>
                 <div className="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/30 rounded-lg p-4 flex gap-3 mb-6">
                   <Key className="w-5 h-5 text-yellow-600 dark:text-yellow-400 shrink-0 mt-0.5" />

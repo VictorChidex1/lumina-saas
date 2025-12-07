@@ -194,11 +194,11 @@ const TermsOfService = () => {
                     Acceptance of Terms
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    By accessing and placing an order with Lumina, you confirm
+                    By accessing and placing an order with Novluma, you confirm
                     that you are in agreement with and bound by the terms of
                     service contained in the Terms & Conditions outlined below.
                     These terms apply to the entire website and any email or
-                    other type of communication between you and Lumina.
+                    other type of communication between you and Novluma.
                   </p>
                 </section>
 
@@ -212,7 +212,7 @@ const TermsOfService = () => {
                   <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-800 mb-6">
                     <p className="text-gray-600 dark:text-gray-300 mb-4">
                       Permission is granted to temporarily download one copy of
-                      the materials (information or software) on Lumina's
+                      the materials (information or software) on Novluma's
                       website for personal, non-commercial transitory viewing
                       only.
                     </p>
@@ -243,9 +243,9 @@ const TermsOfService = () => {
                     Disclaimer
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    The materials on Lumina's website are provided "as is".
-                    Lumina makes no warranties, expressed or implied, and hereby
-                    disclaims and negates all other warranties, including
+                    The materials on Novluma's website are provided "as is".
+                    Novluma makes no warranties, expressed or implied, and
+                    hereby disclaims and negates all other warranties, including
                     without limitation, implied warranties or conditions of
                     merchantability, fitness for a particular purpose, or
                     non-infringement of intellectual property or other violation
@@ -261,11 +261,11 @@ const TermsOfService = () => {
                     Limitations
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    In no event shall Lumina or its suppliers be liable for any
+                    In no event shall Novluma or its suppliers be liable for any
                     damages (including, without limitation, damages for loss of
                     data or profit, or due to business interruption) arising out
-                    of the use or inability to use the materials on Lumina's
-                    website, even if Lumina or a Lumina authorized
+                    of the use or inability to use the materials on Novluma's
+                    website, even if Novluma or a Novluma authorized
                     representative has been notified orally or in writing of the
                     possibility of such damage.
                   </p>
@@ -279,10 +279,10 @@ const TermsOfService = () => {
                     Revisions and Errata
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    The materials appearing on Lumina's website could include
-                    technical, typographical, or photographic errors. Lumina
+                    The materials appearing on Novluma's website could include
+                    technical, typographical, or photographic errors. Novluma
                     does not warrant that any of the materials on its website
-                    are accurate, complete, or current. Lumina may make changes
+                    are accurate, complete, or current. Novluma may make changes
                     to the materials contained on its website at any time
                     without notice.
                   </p>

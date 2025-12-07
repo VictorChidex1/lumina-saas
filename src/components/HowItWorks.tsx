@@ -18,7 +18,7 @@ const steps = [
     icon: TrendingUp,
     title: "Watch It Grow",
     description:
-      "Sit back as Lumina generates high-quality content, schedules posts, and drives engagement automatically.",
+      "Sit back as Novluma generates high-quality content, schedules posts, and drives engagement automatically.",
   },
 ];
 
@@ -34,7 +34,7 @@ const HowItWorks = () => {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
           >
-            How Lumina Works
+            How Novluma Works
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

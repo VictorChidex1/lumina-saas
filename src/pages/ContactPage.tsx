@@ -57,8 +57,8 @@ const ContactPage = () => {
                 </span>
               </h1>
               <p className="text-xl text-indigo-200 leading-relaxed max-w-2xl mx-auto">
-                Have a question or want to learn more about Lumina? We'd love to
-                hear from you.
+                Have a question or want to learn more about Novluma? We'd love
+                to hear from you.
               </p>
             </motion.div>
           </div>
@@ -188,7 +188,7 @@ const ContactPage = () => {
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Join the community building the future of content with
-                      Lumina.
+                      Novluma.
                     </p>
                   </motion.div>
                 </div>
@@ -214,7 +214,7 @@ const ContactPage = () => {
                         Is there a free trial?
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-400 pl-6">
-                        Absolutely. You can try Lumina Pro free for 14 days.
+                        Absolutely. You can try Novluma Pro free for 14 days.
                       </p>
                     </div>
                   </div>

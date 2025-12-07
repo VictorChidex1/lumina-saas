@@ -88,8 +88,8 @@ export function Hero({ onGetStarted }: HeroProps) {
               variants={itemVariants}
               className="mt-4 md:mt-6 max-w-2xl mx-auto text-base md:text-xl text-gray-200 mb-0 leading-relaxed px-2"
             >
-              Lumina helps brands publish, analyze, and grow across all channels
-              using predictive AI. Stop guessing, start scaling.
+              Novluma helps brands publish, analyze, and grow across all
+              channels using predictive AI. Stop guessing, start scaling.
             </motion.p>
           </motion.div>
         </motion.div>

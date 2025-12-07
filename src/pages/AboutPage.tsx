@@ -36,7 +36,7 @@ const AboutPage = () => {
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-white">
                 We are{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-                  Lumina
+                  Novluma
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-indigo-200 mb-10 leading-relaxed max-w-2xl mx-auto">
@@ -73,7 +73,7 @@ const AboutPage = () => {
                   </p>
                   <p>
                     <strong className="text-indigo-600 dark:text-indigo-400">
-                      Lumina exists to remove those barriers.
+                      Novluma exists to remove those barriers.
                     </strong>{" "}
                     We build AI-powered tools that act as a creative partner,
                     handling the mundane so you can focus on the magic.
@@ -291,7 +291,7 @@ const AboutPage = () => {
                 Meet the Team
               </h2>
               <p className="text-gray-600 dark:text-gray-400 text-lg">
-                The visionaries building the future of Lumina.
+                The visionaries building the future of Novluma.
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

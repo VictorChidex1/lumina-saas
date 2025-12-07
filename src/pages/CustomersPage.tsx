@@ -45,7 +45,7 @@ const CustomersPage = () => {
       industry: "SaaS",
       result: "200% Increase in Leads",
       description:
-        "How TechFlow used Lumina's AI content generation to scale their inbound marketing and triple their organic traffic in 3 months.",
+        "How TechFlow used Novluma's AI content generation to scale their inbound marketing and triple their organic traffic in 3 months.",
       image:
         "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80",
     },
@@ -63,7 +63,7 @@ const CustomersPage = () => {
       industry: "E-commerce",
       result: "15% Conversion Boost",
       description:
-        "By personalizing product descriptions at scale with Lumina, Growth Master saw a significant uptick in add-to-cart rates.",
+        "By personalizing product descriptions at scale with Novluma, Growth Master saw a significant uptick in add-to-cart rates.",
       image:
         "https://images.unsplash.com/photo-1664575602276-acd073f104c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
     },
@@ -72,7 +72,7 @@ const CustomersPage = () => {
       industry: "Healthcare",
       result: "30% Lower CAC",
       description:
-        "NextGen Health utilized Lumina to create targeted educational content, significantly reducing their customer acquisition costs.",
+        "NextGen Health utilized Novluma to create targeted educational content, significantly reducing their customer acquisition costs.",
       image:
         "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
     },
@@ -89,7 +89,7 @@ const CustomersPage = () => {
       handle: "@alexc_dev",
       avatar: "AC",
       content:
-        "Just tried Lumina for the first time. Mind blown. 🤯 The quality of the output is lightyears ahead of anything else I've used.",
+        "Just tried Novluma for the first time. Mind blown. 🤯 The quality of the output is lightyears ahead of anything else I've used.",
       source: "Twitter",
       icon: Twitter,
     },
@@ -98,7 +98,7 @@ const CustomersPage = () => {
       handle: "@sarahm_marketing",
       avatar: "SM",
       content:
-        "Lumina saved me about 15 hours this week alone. If you're in content marketing and not using this, you're doing it wrong.",
+        "Novluma saved me about 15 hours this week alone. If you're in content marketing and not using this, you're doing it wrong.",
       source: "Twitter",
       icon: Twitter,
     },
@@ -116,7 +116,7 @@ const CustomersPage = () => {
       handle: "@emilyz_design",
       avatar: "EZ",
       content:
-        "The new image generation features in Lumina are game-changing. Perfect for quick mockups and social assets.",
+        "The new image generation features in Novluma are game-changing. Perfect for quick mockups and social assets.",
       source: "Twitter",
       icon: Twitter,
     },
@@ -134,7 +134,7 @@ const CustomersPage = () => {
       handle: "@lisat_writer",
       avatar: "LT",
       content:
-        "As a freelance writer, I was skeptical. But Lumina acts more like a research assistant than a replacement. Love it.",
+        "As a freelance writer, I was skeptical. But Novluma acts more like a research assistant than a replacement. Love it.",
       source: "Twitter",
       icon: Twitter,
     },
@@ -171,7 +171,7 @@ const CustomersPage = () => {
                   </span>
                 </h1>
                 <p className="text-xl text-indigo-200 leading-relaxed max-w-2xl mx-auto">
-                  Join thousands of forward-thinking companies using Lumina to
+                  Join thousands of forward-thinking companies using Novluma to
                   power their next phase of growth.
                 </p>
               </motion.div>

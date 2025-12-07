@@ -22,7 +22,7 @@ export function GettingStartedPage() {
       icon: Sparkles,
       title: "2. Let AI Generate Magic",
       description:
-        "Watch as Lumina processes your request. Within seconds, you'll get a fully written draft tailored to your specifications. No more writer's block! We use the latest AI models to ensure your content sounds human and engaging.",
+        "Watch as Novluma processes your request. Within seconds, you'll get a fully written draft tailored to your specifications. No more writer's block! We use the latest AI models to ensure your content sounds human and engaging.",
       color: "text-purple-500",
       bg: "bg-purple-100 dark:bg-purple-900/30",
       screenshotColor: "bg-purple-50 dark:bg-purple-900/20",
@@ -64,7 +64,7 @@ export function GettingStartedPage() {
 
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Welcome to Lumina 🚀
+            Welcome to Novluma 🚀
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Your all-in-one AI content workspace. Let's get you set up and
@@ -77,7 +77,7 @@ export function GettingStartedPage() {
           <iframe
             className="w-full h-full"
             src="https://www.youtube.com/embed/ryJCy87EU3g?rel=0"
-            title="Lumina Crash Course"
+            title="Novluma Crash Course"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />

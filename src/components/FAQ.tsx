@@ -8,9 +8,9 @@ import {
 
 const faqs = [
   {
-    question: "Can I try Lumina for free?",
+    question: "Can I try Novluma for free?",
     answer:
-      "Absolutely! We offer a 14-day free trial on all plans. No credit card required to start. You can explore all features and see if Lumina is the right fit for you.",
+      "Absolutely! We offer a 14-day free trial on all plans. No credit card required to start. You can explore all features and see if Novluma is the right fit for you.",
   },
   {
     question: "Can I cancel my subscription anytime?",
@@ -18,9 +18,9 @@ const faqs = [
       "Yes, you can cancel your subscription at any time from your account settings. There are no long-term contracts or hidden fees. Your access will continue until the end of your billing cycle.",
   },
   {
-    question: "Do I need technical skills to use Lumina?",
+    question: "Do I need technical skills to use Novluma?",
     answer:
-      "Not at all. Lumina is designed to be user-friendly and intuitive. Our drag-and-drop interface and AI assistants make it easy for anyone to create professional content and manage campaigns.",
+      "Not at all. Novluma is designed to be user-friendly and intuitive. Our drag-and-drop interface and AI assistants make it easy for anyone to create professional content and manage campaigns.",
   },
   {
     question: "How does the AI know my brand voice?",
@@ -58,7 +58,7 @@ const FAQ = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-xl text-gray-600 dark:text-gray-300"
           >
-            Everything you need to know about Lumina.
+            Everything you need to know about Novluma.
           </motion.p>
         </div>
 

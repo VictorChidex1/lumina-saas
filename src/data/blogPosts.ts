@@ -31,7 +31,7 @@ export const blogPosts: BlogPost[] = [
       <p>The fear that AI will replace creatives is misplaced. Instead, we are seeing a new form of collaboration. The "human in the loop" is more important than ever. AI generates options, but the human curator decides what has value, what resonates emotionally, and what fits the brand narrative.</p>
 
       <h2>Case Study: Rapid Prototyping</h2>
-      <p>At Lumina, we recently used our own tools to prototype a new dashboard feature. What usually takes two weeks of wireframing and mockups was condensed into a two-day sprint. By generating UI components and layout variations instantly, our design team could focus on user flow and experience rather than pixel-pushing.</p>
+      <p>At Novluma, we recently used our own tools to prototype a new dashboard feature. What usually takes two weeks of wireframing and mockups was condensed into a two-day sprint. By generating UI components and layout variations instantly, our design team could focus on user flow and experience rather than pixel-pushing.</p>
 
       <h2>Looking Ahead</h2>
       <p>As models become more multimodal—understanding text, image, audio, and video simultaneously—the barriers between different creative disciplines will blur. A writer could become a filmmaker; a designer could become a composer. The future belongs to those who can orchestrate these tools effectively.</p>
@@ -109,9 +109,9 @@ export const blogPosts: BlogPost[] = [
     slug: "building-scalable-ai-infrastructure",
     title: "Building Scalable AI Infrastructure",
     excerpt:
-      "Lessons learned from scaling Lumina to millions of daily requests.",
+      "Lessons learned from scaling Novluma to millions of daily requests.",
     content: `
-      <p>Scaling an AI application is different from scaling a traditional CRUD app. The compute requirements are massive, latency is a constant battle, and cost management is critical. Here is how we built Lumina's infrastructure to handle millions of daily inferences.</p>
+      <p>Scaling an AI application is different from scaling a traditional CRUD app. The compute requirements are massive, latency is a constant battle, and cost management is critical. Here is how we built Novluma's infrastructure to handle millions of daily inferences.</p>
 
       <h2>The Inference Bottleneck</h2>
       <p>LLMs are GPU-hungry. We adopted a hybrid cloud strategy, utilizing spot instances for batch processing and reserved instances for real-time user requests. We also implemented aggressive caching layers. If a user asks a question that has been asked before, we serve the cached response instantly.</p>
@@ -137,7 +137,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Navigating the complex landscape of copyright, bias, and authenticity.",
     content: `
-      <p>With great power comes great responsibility. As generative AI becomes mainstream, we must address the ethical implications head-on. At Lumina, we believe in "Responsible AI" by design.</p>
+      <p>With great power comes great responsibility. As generative AI becomes mainstream, we must address the ethical implications head-on. At Novluma, we believe in "Responsible AI" by design.</p>
 
       <h2>Copyright and Ownership</h2>
       <p>Who owns an AI-generated image? The prompter? The model creator? The artists whose work trained the model? The legal landscape is still settling, but we advocate for transparency. We ensure our training data is ethically sourced and provide tools for creators to watermark and attribute their AI-generated content.</p>
@@ -161,18 +161,18 @@ export const blogPosts: BlogPost[] = [
     slug: "concept-to-launch-in-24-hours",
     title: "From Concept to Launch in 24 Hours",
     excerpt:
-      "How our team used Lumina to build and ship a new feature in record time.",
+      "How our team used Novluma to build and ship a new feature in record time.",
     content: `
       <p>Speed is the ultimate competitive advantage. Last week, we challenged ourselves: could we build and ship a fully functional feature—our new "Magic Editor"—in just 24 hours? The answer was yes, but only because we dogfooded our own AI tools.</p>
 
       <h2>Hour 0-4: Ideation and Specs</h2>
-      <p>We used Lumina's "Brainstorm" mode to generate feature requirements and user stories. We fed it customer feedback and asked for the highest-impact solution. It suggested an in-painting tool for quick image corrections.</p>
+      <p>We used Novluma's "Brainstorm" mode to generate feature requirements and user stories. We fed it customer feedback and asked for the highest-impact solution. It suggested an in-painting tool for quick image corrections.</p>
 
       <h2>Hour 4-12: Coding with Copilots</h2>
       <p>Our engineers paired with AI coding assistants to scaffold the frontend and backend. The AI handled the boilerplate—API endpoints, state management, and basic UI components—allowing the humans to focus on the complex canvas interaction logic.</p>
 
       <h2>Hour 12-18: Content and Marketing</h2>
-      <p>While the code was being written, our marketing team used Lumina to generate the launch blog post (meta, right?), social media copy, and even the tutorial video script. We generated promotional images using the very tool we were building.</p>
+      <p>While the code was being written, our marketing team used Novluma to generate the launch blog post (meta, right?), social media copy, and even the tutorial video script. We generated promotional images using the very tool we were building.</p>
 
       <h2>Hour 18-24: Testing and Deployment</h2>
       <p>We used AI to generate unit tests and integration tests, catching edge cases we might have missed. By hour 23, we were deploying to production. At hour 24, the feature was live.</p>

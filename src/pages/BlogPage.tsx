@@ -106,7 +106,7 @@ const BlogPage = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                 </span>
-                Lumina Blog
+                Novluma Blog
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-8 text-white">
                 Insights &{" "}
@@ -116,7 +116,7 @@ const BlogPage = () => {
               </h1>
               <p className="text-xl md:text-2xl text-indigo-200 mb-10 leading-relaxed max-w-2xl mx-auto">
                 The latest news, tutorials, and engineering deep dives from the
-                Lumina team.
+                Novluma team.
               </p>
             </motion.div>
           </div>

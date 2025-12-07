@@ -23,7 +23,7 @@ export const sendWelcomeEmail = async (email: string, name: string) => {
       {
         email: email, // Matches {{email}} in your 'To Email' field
         name: name, // Matches {{name}} in your Subject line
-        link: "https://lumina-saas.vercel.app/dashboard",
+        link: "https://novluma-saas.vercel.app/dashboard",
       },
       publicKey
     );

@@ -122,9 +122,9 @@ export function Navbar({
         <div className="flex justify-between h-16 relative">
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <img src={logo} alt="Lumina Logo" className="h-8 w-auto" />
+              <img src={logo} alt="Novluma Logo" className="h-8 w-auto" />
               <span className="text-xl font-bold text-gray-900 dark:text-white">
-                Lumina
+                Novluma
               </span>
             </Link>
           </div>

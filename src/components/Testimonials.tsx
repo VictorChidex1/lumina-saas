@@ -8,7 +8,7 @@ const testimonials = [
     name: "Dr Alex Victory",
     role: "Marketing Director at TechFlow",
     content:
-      "Lumina has completely transformed how we handle our social media analytics. The AI insights are incredibly accurate and have helped us double our engagement in just two months.",
+      "Novluma has completely transformed how we handle our social media analytics. The AI insights are incredibly accurate and have helped us double our engagement in just two months.",
     avatar: "/dr-alex.png",
     initials: "AV",
   },
@@ -16,7 +16,7 @@ const testimonials = [
     name: "Dr Michael Chen",
     role: "Founder of StartUp Inc",
     content:
-      "The content generation features are a game-changer. I used to spend hours writing captions, but now Lumina does it in seconds, and they sound exactly like my brand voice.",
+      "The content generation features are a game-changer. I used to spend hours writing captions, but now Novluma does it in seconds, and they sound exactly like my brand voice.",
     avatar: "/dr-Michael.png",
     initials: "MC",
   },
@@ -24,7 +24,7 @@ const testimonials = [
     name: "Dr Emily Davis",
     role: "Social Media Manager",
     content:
-      "I've tried every tool out there, but nothing compares to Lumina's ease of use and powerful features. The scheduling tool is intuitive and the analytics are deep yet easy to understand.",
+      "I've tried every tool out there, but nothing compares to Novluma's ease of use and powerful features. The scheduling tool is intuitive and the analytics are deep yet easy to understand.",
     avatar: "/dr-emily.png",
     initials: "ED",
   },
@@ -55,7 +55,7 @@ const Testimonials = () => {
             className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
             Don't just take our word for it. Here's what our users have to say
-            about their experience with Lumina.
+            about their experience with Novluma.
           </motion.p>
         </div>
 

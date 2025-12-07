@@ -198,7 +198,7 @@ const CareersPage = () => {
                 <div className="absolute inset-0 bg-indigo-500/20 rounded-3xl transform rotate-3 scale-105 -z-10 blur-2xl"></div>
                 <img
                   src="/career-hero.png"
-                  alt="Lumina Team"
+                  alt="Novluma Team"
                   className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3] border border-indigo-800/50"
                 />
               </motion.div>
@@ -210,7 +210,7 @@ const CareersPage = () => {
         <section className="py-20 bg-gray-50 dark:bg-gray-900/50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold mb-4">Why join Lumina?</h2>
+              <h2 className="text-3xl font-bold mb-4">Why join Novluma?</h2>
               <p className="text-gray-600 dark:text-gray-400 text-lg">
                 We believe that happy people create the best products. That's
                 why we offer industry-leading benefits.
@@ -334,7 +334,7 @@ const CareersPage = () => {
               >
                 <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl opacity-20 blur-2xl -z-10"></div>
                 <img
-                  src="/join-luminar.png"
+                  src="/join-Novluma.png"
                   alt="Join Lumina"
                   className="rounded-3xl shadow-2xl w-full object-cover"
                 />

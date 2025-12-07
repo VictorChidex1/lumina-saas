@@ -22,11 +22,11 @@ const Footer = () => {
               <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden">
                 <img
                   src="/favicon.png"
-                  alt="Lumina Logo"
+                  alt="Novluma Logo"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-2xl font-bold text-white">Lumina</span>
+              <span className="text-2xl font-bold text-white">Novluma</span>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
               Empowering creators and businesses with AI-driven content

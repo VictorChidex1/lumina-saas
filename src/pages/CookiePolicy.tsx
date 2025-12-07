@@ -213,7 +213,7 @@ const CookiePolicy = () => {
                     computer or mobile device by websites that you visit. They
                     are widely used in order to make websites work, or work more
                     efficiently, as well as to provide information to the owners
-                    of the site. Lumina uses cookies to distinguish you from
+                    of the site. Novluma uses cookies to distinguish you from
                     other users of our website.
                   </p>
                 </section>

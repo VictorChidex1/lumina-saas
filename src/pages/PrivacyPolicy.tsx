@@ -109,7 +109,7 @@ const PrivacyPolicy = () => {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-indigo-200 mb-10 leading-relaxed max-w-2xl mx-auto">
-                Transparency and trust are core to Lumina. Here's how we handle
+                Transparency and trust are core to Novluma. Here's how we handle
                 your data.
               </p>
             </motion.div>
@@ -202,12 +202,12 @@ const PrivacyPolicy = () => {
                     Introduction
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Welcome to Lumina. We respect your privacy and are committed
-                    to protecting your personal data. This privacy policy will
-                    inform you as to how we look after your personal data when
-                    you visit our website (regardless of where you visit it
-                    from) and tell you about your privacy rights and how the law
-                    protects you.
+                    Welcome to Novluma. We respect your privacy and are
+                    committed to protecting your personal data. This privacy
+                    policy will inform you as to how we look after your personal
+                    data when you visit our website (regardless of where you
+                    visit it from) and tell you about your privacy rights and
+                    how the law protects you.
                   </p>
                 </section>
 
