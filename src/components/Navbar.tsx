@@ -18,6 +18,7 @@ import {
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import logo from "../assets/images/Logo.png";
+import { AuthModal } from "./AuthModal";
 
 import profilePicture from "../assets/images/profile-picture.png";
 
@@ -28,13 +29,43 @@ interface NavbarProps {
   onGetStarted?: () => void;
 }
 
-export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
+export function Navbar({
+  onMenuClick,
+  isSidebarOpen,
+  onSignin,
+  onGetStarted,
+}: NavbarProps) {
   const { user, userRole, logout } = useAuth();
   const { toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
+  // Internal Auth State (Fallback for pages that don't pass handlers)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authTab, setAuthTab] = useState<"signin" | "signup">("signin");
+
+  const openInternalAuth = (tab: "signin" | "signup") => {
+    setAuthTab(tab);
+    setIsAuthModalOpen(true);
+  };
+
+  const handleSigninClick = () => {
+    if (onSignin) {
+      onSignin();
+    } else {
+      openInternalAuth("signin");
+    }
+  };
+
+  const handleGetStartedClick = () => {
+    if (onGetStarted) {
+      onGetStarted();
+    } else {
+      openInternalAuth("signup");
+    }
+  };
 
   // Fetch real-time profile data from Firestore
   useEffect(() => {
@@ -58,7 +89,7 @@ export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
   const handleSignOut = async () => {
     try {
       await logout();
-      navigate("/");
+      window.location.href = "/";
     } catch (error) {
       console.error("Error signing out:", error);
     }
@@ -139,82 +170,102 @@ export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
               />
             </button>
 
-            <button className="relative p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-              <Bell size={20} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
-            </button>
+            {user ? (
+              <>
+                <button className="relative p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                  <Bell size={20} />
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
+                </button>
 
-            <div className="relative" ref={profileRef}>
-              <button
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center gap-3 p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-medium overflow-hidden">
-                  <img
-                    src={avatarUrl || user?.photoURL || profilePicture}
-                    alt={user?.displayName || "User"}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {user?.displayName || user?.email?.split("@")[0]}
-                </span>
-              </button>
-
-              <AnimatePresence>
-                {isProfileOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800 py-1 z-50"
+                <div className="relative" ref={profileRef}>
+                  <button
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    className="flex items-center gap-3 p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
                   >
-                    <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                        {user?.displayName || "User"}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                        {user?.email}
-                      </p>
+                    <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-medium overflow-hidden">
+                      <img
+                        src={avatarUrl || user?.photoURL || profilePicture}
+                        alt={user?.displayName || "User"}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    {userRole === "admin" && (
-                      <Link
-                        to="/admin"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-                        onClick={() => setIsProfileOpen(false)}
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {user?.displayName || user?.email?.split("@")[0]}
+                    </span>
+                  </button>
+
+                  <AnimatePresence>
+                    {isProfileOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800 py-1 z-50"
                       >
-                        <Shield size={16} />
-                        Admin
-                      </Link>
+                        <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+                          <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                            {user?.displayName || "User"}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                            {user?.email}
+                          </p>
+                        </div>
+                        {userRole === "admin" && (
+                          <Link
+                            to="/admin"
+                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                            onClick={() => setIsProfileOpen(false)}
+                          >
+                            <Shield size={16} />
+                            Admin
+                          </Link>
+                        )}
+                        <Link
+                          to="/dashboard"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          <LayoutDashboard size={16} />
+                          Dashboard
+                        </Link>
+                        <Link
+                          to="/dashboard/settings"
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          <Settings size={16} />
+                          Settings
+                        </Link>
+                        <button
+                          onClick={handleSignOut}
+                          className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                        >
+                          <LogOut size={16} />
+                          Sign Out
+                        </button>
+                      </motion.div>
                     )}
-                    <Link
-                      to="/dashboard"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      <LayoutDashboard size={16} />
-                      Dashboard
-                    </Link>
-                    <Link
-                      to="/dashboard/settings"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      <Settings size={16} />
-                      Settings
-                    </Link>
-                    <button
-                      onClick={handleSignOut}
-                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
-                    >
-                      <LogOut size={16} />
-                      Sign Out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                  </AnimatePresence>
+                </div>
+              </>
+            ) : (
+              // Logged Out State
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={handleSigninClick}
+                  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={handleGetStartedClick}
+                  className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 dark:shadow-indigo-900/30"
+                >
+                  Get Started
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -269,35 +320,74 @@ export function Navbar({ onMenuClick, isSidebarOpen }: NavbarProps) {
                 Admin
               </Link>
             )}
-            <Link
-              to="/dashboard"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Dashboard
-            </Link>
-            <Link
-              to="/dashboard/settings"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Settings
-            </Link>
+
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/dashboard/settings"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Settings
+                </Link>
+                <button
+                  onClick={async () => {
+                    await logout();
+                    window.location.href = "/";
+                  }}
+                  className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleSigninClick();
+                  }}
+                  className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleGetStartedClick();
+                  }}
+                  className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                >
+                  Get Started
+                </button>
+              </>
+            )}
+
+            <div className="border-t border-gray-100 dark:border-gray-800 my-2"></div>
+
             <button
               onClick={toggleTheme}
               className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
             >
               Switch Theme
             </button>
-            <button
-              onClick={handleSignOut}
-              className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
-            >
-              Sign Out
-            </button>
           </div>
         </div>
       )}
+
+      {/* Internal Auth Modal (Fallback) */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        defaultTab={authTab}
+      />
     </motion.nav>
   );
 }

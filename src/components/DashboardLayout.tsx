@@ -64,7 +64,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
       <div className="p-4 border-t border-gray-200 dark:border-gray-800">
         <button
-          onClick={logout}
+          onClick={async () => {
+            await logout();
+            // Use window.location to ensure a full state reset
+            window.location.href = "/";
+          }}
           className="w-full flex items-center justify-center gap-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 py-2.5 rounded-lg transition-colors text-sm font-medium"
         >
           <LogOut size={16} />

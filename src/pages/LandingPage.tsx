@@ -8,17 +8,36 @@ import HowItWorks from "../components/HowItWorks";
 import FAQ from "../components/FAQ";
 import Footer from "../components/Footer";
 
+import { useState } from "react";
+import { AuthModal } from "../components/AuthModal";
+
 export function LandingPage() {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authTab, setAuthTab] = useState<"signin" | "signup">("signin");
+
+  const openAuth = (tab: "signin" | "signup") => {
+    setAuthTab(tab);
+    setIsAuthModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 selection:bg-indigo-100 dark:selection:bg-indigo-900/30 selection:text-indigo-900 dark:selection:text-indigo-100">
-      <Navbar />
-      <Hero onGetStarted={() => {}} />
+      <Navbar
+        onSignin={() => openAuth("signin")}
+        onGetStarted={() => openAuth("signup")}
+      />
+      <Hero onGetStarted={() => openAuth("signup")} />
       <Features />
       <HowItWorks />
       <Testimonials />
       <Pricing />
       <FAQ />
       <Footer />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        defaultTab={authTab}
+      />
     </div>
   );
 }
