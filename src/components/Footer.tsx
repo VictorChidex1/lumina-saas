@@ -21,7 +21,7 @@ const Footer = () => {
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden">
                 <img
-                  src="/favicon.png"
+                  src={`${import.meta.env.BASE_URL}favicon.png`}
                   alt="Novluma Logo"
                   className="w-full h-full object-cover"
                 />
