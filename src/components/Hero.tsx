@@ -1,12 +1,15 @@
-import { ArrowRight, Play } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
+import { ArrowRight, Play, X } from "lucide-react";
+import { motion, type Variants, AnimatePresence } from "framer-motion";
 import heroImage from "../assets/images/hero.png";
+import { useState } from "react";
 
 interface HeroProps {
   onGetStarted: () => void;
 }
 
 export function Hero({ onGetStarted }: HeroProps) {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -111,8 +114,9 @@ export function Hero({ onGetStarted }: HeroProps) {
             <ArrowRight size={20} className="ml-2" />
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.05, backgroundColor: "#f9fafb" }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setIsVideoOpen(true)}
             className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 px-6 py-3.5 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center w-full sm:w-auto"
           >
             <Play size={20} className="mr-2" />
@@ -134,6 +138,41 @@ export function Hero({ onGetStarted }: HeroProps) {
         }}
         className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-100/50 dark:bg-indigo-900/20 rounded-full blur-3xl -z-10"
       />
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setIsVideoOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-5xl aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsVideoOpen(false)}
+                className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
+              >
+                <X size={24} />
+              </button>
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/B3nMvfDlQJQ?autoplay=1"
+                title="Novluma Crash Course"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
