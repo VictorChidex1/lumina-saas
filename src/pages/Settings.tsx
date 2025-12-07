@@ -22,7 +22,6 @@ import {
 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { motion } from "framer-motion";
-import profilePicture from "../assets/images/profile-picture.png";
 
 export function Settings() {
   const { user } = useAuth();
@@ -337,11 +336,22 @@ export function Settings() {
               <div className="flex items-center gap-4">
                 <div className="relative group">
                   <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400 overflow-hidden">
-                    <img
-                      src={avatarUrl || user?.photoURL || profilePicture}
-                      alt="Profile"
-                      className="w-full h-full object-cover"
-                    />
+                    {avatarUrl || user?.photoURL ? (
+                      <img
+                        src={avatarUrl || user?.photoURL}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span>
+                        {user?.displayName
+                          ?.split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase()
+                          .slice(0, 2) || "U"}
+                      </span>
+                    )}
                   </div>
                   <label className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 rounded-full cursor-pointer transition-opacity">
                     <span className="text-xs font-medium">Change</span>

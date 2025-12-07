@@ -14,13 +14,12 @@ import {
   Moon,
   LayoutDashboard,
   Shield,
+  ChevronDown,
 } from "lucide-react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import logo from "../assets/images/Logo.png";
 import { AuthModal } from "./AuthModal";
-
-import profilePicture from "../assets/images/profile-picture.png";
 
 interface NavbarProps {
   onMenuClick?: () => void;
@@ -37,7 +36,7 @@ export function Navbar({
 }: NavbarProps) {
   const { user, userRole, logout } = useAuth();
   const { toggleTheme } = useTheme();
-  const navigate = useNavigate();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -177,21 +176,36 @@ export function Navbar({
                   <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
                 </button>
 
+                {/* Profile Dropdown */}
                 <div className="relative" ref={profileRef}>
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="flex items-center gap-3 p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-medium overflow-hidden">
-                      <img
-                        src={avatarUrl || user?.photoURL || profilePicture}
-                        alt={user?.displayName || "User"}
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-xs overflow-hidden border border-gray-200 dark:border-gray-700">
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt={user.displayName || "User"}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span>
+                          {user.displayName
+                            ?.split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                            .toUpperCase()
+                            .slice(0, 2) || "U"}
+                        </span>
+                      )}
                     </div>
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {user?.displayName || user?.email?.split("@")[0]}
-                    </span>
+                    <ChevronDown
+                      size={16}
+                      className={`text-gray-600 dark:text-gray-400 transition-transform duration-200 ${
+                        isProfileOpen ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
 
                   <AnimatePresence>
