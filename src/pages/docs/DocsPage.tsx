@@ -64,6 +64,57 @@ export function DocsPage() {
         <div dangerouslySetInnerHTML={{ __html: activeArticle.content }} />
       </motion.article>
 
+      {/* Next/Previous Article Navigation */}
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {(() => {
+          // Flatten all articles to find prev/next
+          const allArticles = docsData.flatMap((cat) =>
+            cat.articles.map((art) => ({ ...art, category: cat.title }))
+          );
+          const currentIndex = allArticles.findIndex(
+            (art) => art.slug === slug
+          );
+          const prevArticle = allArticles[currentIndex - 1];
+          const nextArticle = allArticles[currentIndex + 1];
+
+          return (
+            <>
+              {prevArticle ? (
+                <Link
+                  to={`/docs/${prevArticle.slug}`}
+                  className="flex flex-col p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors group"
+                >
+                  <span className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                    Previous
+                  </span>
+                  <span className="font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                    {prevArticle.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+
+              {nextArticle ? (
+                <Link
+                  to={`/docs/${nextArticle.slug}`}
+                  className="flex flex-col p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors text-right group"
+                >
+                  <span className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                    Next
+                  </span>
+                  <span className="font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                    {nextArticle.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+            </>
+          );
+        })()}
+      </div>
+
       {/* Helpful Footer */}
       <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 flex justify-between items-center text-sm text-gray-500">
         <p>Was this page helpful?</p>

@@ -1,10 +1,17 @@
-import { Code, CreditCard, Rocket, Sparkles } from "lucide-react";
+import {
+  Code,
+  CreditCard,
+  Rocket,
+  Sparkles,
+  Zap,
+  LifeBuoy,
+} from "lucide-react";
 
 export interface DocArticle {
   slug: string;
   title: string;
   description: string;
-  content: string; // We can use HTML or Markdown here. For simplicity, we'll start with HTML strings.
+  content: string;
 }
 
 export interface DocCategory {
@@ -26,8 +33,12 @@ export const docsData: DocCategory[] = [
         description: "Everything you need to know to get started with Novluma.",
         content: `
           <h1>Introduction to Novluma</h1>
-          <p>Welcome to Novluma, your all-in-one AI content workspace. We help you generate, edit, and publish high-quality content for blogs, social media, and email marketing.</p>
+          <p class="lead">Welcome to Novluma, your all-in-one AI content workspace. We help you generate, edit, and publish high-quality content for blogs, social media, and email marketing.</p>
           
+          <div class="callout callout-info">
+            <strong>👋 Welcome!</strong> Novluma is designed to value your time. This documentation will help you get up to speed quickly.
+          </div>
+
           <h2>What is Novluma?</h2>
           <p>Novluma is an advanced SaaS platform powered by Google's Gemini AI. It allows you to:</p>
           <ul>
@@ -54,16 +65,24 @@ export const docsData: DocCategory[] = [
           <p>Ready to create your first piece of content? Follow these simple steps.</p>
           
           <h2>Step 1: Dashboard</h2>
-          <p>Log in to your dashboard. You'll see a big "New Project" button. Click it.</p>
+          <p>Log in to your dashboard. You'll see a big <strong>"New Project"</strong> button. Click it.</p>
           
           <h2>Step 2: Choose Your Format</h2>
           <p>Select what you want to create: Blog Post, Social Media Post, or Email.</p>
           
           <h2>Step 3: Define Your Topic</h2>
           <p>Enter a brief description of what you want the AI to write about. Be as specific or as vague as you like.</p>
+
+          <div class="callout callout-tip">
+            <strong>💡 Pro Tip:</strong> You can edit the tone of voice setting anytime in your project settings.
+          </div>
           
           <h2>Step 4: Generate</h2>
           <p>Click "Generate" and watch the magic happen. You can then use our Magic Editor to refine the result.</p>
+
+          <div class="callout callout-warning">
+            <strong>⚠️ Note:</strong> Free tier users are limited to 5 generations per day. Upgrade to Pro for unlimited access.
+          </div>
         `,
       },
     ],
@@ -109,6 +128,72 @@ export const docsData: DocCategory[] = [
           </ul>
         `,
       },
+      {
+        slug: "brand-voice",
+        title: "Brand Voice",
+        description: "Customize the AI to sound like you.",
+        content: `
+          <h1>Brand Voice Customization</h1>
+          <p>Consistency is key. Novluma allows you to define a "Brand Voice" that applies to all your projects.</p>
+
+          <h2>How to Setup</h2>
+          <ol>
+            <li>Go to <strong>Settings > Brand Voice</strong>.</li>
+            <li>Upload a sample of your writing (blog post, email, etc.).</li>
+            <li>The AI will analyze your style and create a custom profile.</li>
+          </ol>
+
+          <div class="callout callout-tip">
+            <strong>💡 Tip:</strong> You can create multiple voices for different clients or channels.
+          </div>
+        `,
+      },
+      {
+        slug: "content-templates",
+        title: "Content Templates",
+        description: "Pre-built structures for viral content.",
+        content: `
+          <h1>Content Templates</h1>
+          <p>Don't start from scratch. Use our proven templates to get a head start.</p>
+
+          <h2>Popular Templates</h2>
+          <ul>
+            <li><strong>The "How-To" Guide</strong>: Step-by-step educational content.</li>
+            <li><strong>The "Listicle"</strong>: 5 ways to do X.</li>
+            <li><strong>The "Storyteller"</strong>: Narrative-driven posts for LinkedIn.</li>
+          </ul>
+        `,
+      },
+    ],
+  },
+  {
+    id: "best-practices",
+    title: "Best Practices",
+    icon: Zap,
+    articles: [
+      {
+        slug: "prompt-engineering",
+        title: "Prompt Engineering 101",
+        description: "How to write prompts that get amazing results.",
+        content: `
+          <h1>Prompt Engineering 101</h1>
+          <p>The quality of the output depends on the quality of the input. Here is how to guide Novluma effectively.</p>
+
+          <h2>The C.R.E.A.T.E Framework</h2>
+          <ul>
+            <li><strong>C</strong>ontext: Give the AI background info.</li>
+            <li><strong>R</strong>ole: Tell it who it is (e.g., "Expert Marketer").</li>
+            <li><strong>E</strong>xplicit Instructions: Be clear about what you want.</li>
+            <li><strong>A</strong>udience: Who is reading this?</li>
+            <li><strong>T</strong>one: How should it sound?</li>
+            <li><strong>E</strong>xamples: Provide examples if possible.</li>
+          </ul>
+
+          <div class="callout callout-info">
+            <strong>Example Prompt:</strong> "Act as a fitness coach. Write a 500-word blog post about 'Keto Diet for Beginners'. Target audience is busy moms. Tone should be encouraging and simple."
+          </div>
+        `,
+      },
     ],
   },
   {
@@ -131,6 +216,62 @@ export const docsData: DocCategory[] = [
           <p>Unlimited generations, priority support, and access to GPT-4 class models.</p>
         `,
       },
+      {
+        slug: "managing-subscription",
+        title: "Managing Subscription",
+        description: "Upgrading, downgrading, and cancellations.",
+        content: `
+          <h1>Managing Your Subscription</h1>
+          <p>You have full control over your billing.</p>
+
+          <h2>Upgrading</h2>
+          <p>Go to <strong>Settings > Billing</strong> and click "Upgrade". Changes apply immediately.</p>
+
+          <h2>Canceling</h2>
+          <p>We hate to see you go, but you can cancel anytime. Your plan will remain active until the end of the billing period.</p>
+        `,
+      },
+    ],
+  },
+  {
+    id: "troubleshooting",
+    title: "Troubleshooting",
+    icon: LifeBuoy,
+    articles: [
+      {
+        slug: "common-issues",
+        title: "Common Issues",
+        description: "Solutions to frequent problems.",
+        content: `
+          <h1>Common Issues</h1>
+          
+          <h2>Generation Failed or Timed Out</h2>
+          <p>If the AI fails to generate content, it may be due to high server load or a network interruption.</p>
+          <div class="callout callout-tip">
+            <strong>Solution:</strong> Wait 30 seconds and try again. If it persists, check your internet connection.
+          </div>
+
+          <h2>"Limit Reached" Error</h2>
+          <p>This means you have used all your credits for the day/month.</p>
+          <div class="callout callout-info">
+            <strong>Solution:</strong> Wait for the daily reset (00:00 UTC) or upgrade to Pro for unlimited access.
+          </div>
+        `,
+      },
+      {
+        slug: "contact-support",
+        title: "Contact Support",
+        description: "How to get help from a human.",
+        content: `
+          <h1>Contact Support</h1>
+          <p>Can't find what you're looking for?</p>
+          
+          <ul>
+            <li><strong>Email</strong>: support@novluma.com</li>
+            <li><strong>Live Chat</strong>: Available 9am-5pm EST (Pro users only).</li>
+          </ul>
+        `,
+      },
     ],
   },
   {
@@ -146,6 +287,10 @@ export const docsData: DocCategory[] = [
           <h1>API Authentication</h1>
           <p>All API requests must include your API key in the header.</p>
           <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+          
+          <div class="callout callout-warning">
+            <strong>⚠️ Security:</strong> Never share your API key in client-side code (frontend). Always route requests through your backend.
+          </div>
         `,
       },
       {
