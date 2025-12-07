@@ -21,9 +21,9 @@ export const sendWelcomeEmail = async (email: string, name: string) => {
       serviceId,
       templateId,
       {
-        to_email: email,
-        to_name: name,
-        // Add any other variables your template uses here
+        email: email, // Matches {{email}} in your 'To Email' field
+        name: name, // Matches {{name}} in your Subject line
+        link: "https://lumina-saas.vercel.app/dashboard",
       },
       publicKey
     );
