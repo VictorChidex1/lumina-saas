@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { useClickOutside } from "../hooks/useClickOutside";
@@ -183,9 +183,9 @@ export function Navbar({
                     className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
                     <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-xs overflow-hidden border border-gray-200 dark:border-gray-700">
-                      {user.photoURL ? (
+                      {avatarUrl || user.photoURL ? (
                         <img
-                          src={user.photoURL}
+                          src={avatarUrl || user.photoURL || undefined}
                           alt={user.displayName || "User"}
                           className="w-full h-full object-cover"
                         />

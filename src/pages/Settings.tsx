@@ -338,7 +338,7 @@ export function Settings() {
                   <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400 overflow-hidden">
                     {avatarUrl || user?.photoURL ? (
                       <img
-                        src={avatarUrl || user?.photoURL}
+                        src={avatarUrl || user?.photoURL || undefined}
                         alt="Profile"
                         className="w-full h-full object-cover"
                       />
