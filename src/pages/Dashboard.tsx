@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getUserProjects } from "@/lib/projects";
 import { DashboardLayout } from "../components/DashboardLayout";
+import { UsageChart } from "../components/UsageChart";
 import { motion } from "framer-motion";
 import {
   Plus,
@@ -50,20 +51,20 @@ export function Dashboard() {
     },
   ];
 
-  const [recentProjects, setRecentProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchRecent = async () => {
+    const fetchProjects = async () => {
       if (user) {
         try {
-          const projects = await getUserProjects(user.uid);
-          setRecentProjects(projects.slice(0, 3));
+          const data = await getUserProjects(user.uid);
+          setProjects(data);
         } catch (error) {
-          console.error("Failed to fetch recent projects", error);
+          console.error("Failed to fetch projects", error);
         }
       }
     };
-    fetchRecent();
+    fetchProjects();
   }, [user]);
 
   const usageStats = [
@@ -163,6 +164,13 @@ export function Dashboard() {
             </div>
           </section>
 
+          {/* Usage Chart Section */}
+          <section>
+            <motion.div variants={item}>
+              <UsageChart projects={projects} />
+            </motion.div>
+          </section>
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Recent Activity Feed */}
             <section className="lg:col-span-2">
@@ -183,12 +191,12 @@ export function Dashboard() {
                 className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden"
               >
                 <div className="divide-y divide-gray-100 dark:divide-gray-800">
-                  {recentProjects.length === 0 ? (
+                  {projects.length === 0 ? (
                     <div className="p-8 text-center text-gray-500 dark:text-gray-400">
                       No recent activity. Start a new project!
                     </div>
                   ) : (
-                    recentProjects.map((project) => (
+                    projects.slice(0, 3).map((project) => (
                       <div
                         key={project.id}
                         onClick={() =>

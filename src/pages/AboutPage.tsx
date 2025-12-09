@@ -10,7 +10,6 @@ import agbahoImg from "@/assets/images/team/agbaho-victor.png";
 import oziomaImg from "@/assets/images/team/dr-ozioma.png";
 import davidImg from "@/assets/images/team/david-miller.png";
 import sarahImg from "@/assets/images/team/sarah-chen.png";
-import emilyImg from "@/assets/images/team/emily-zhang.png";
 import michaelImg from "@/assets/images/team/michael-ross.png";
 import alexImg from "@/assets/images/team/dr-alex.png";
 import karlImg from "@/assets/images/team/karl-dora.png";
