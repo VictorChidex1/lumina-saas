@@ -22,7 +22,7 @@ export default function SEO({
   const metaImage = image || `${siteUrl}/og-image.png`; // Fallback to default OG image
 
   return (
-    <Helmet>
+    <Helmet prioritizeSeoTags defer={false}>
       {/* Standard metadata tags */}
       <title>
         {title} | {name}
