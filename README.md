@@ -23,6 +23,10 @@ A professional, high-performance landing page designed to convert:
 - **Settings**: Comprehensive user preferences (Profile, Security, Notifications, Billing).
 - **Profile Management**: Custom avatar upload (stored via Base64 in Firestore) with real-time sync.
 - **Dark Mode**: System-wide dark mode with persistent state.
+- **Usage Limits System**:
+  - **Quotas**: Monthly word count limits (e.g., 20,000 words) for regular users.
+  - **Lazy Reset**: Serverless, automatic cycle resets based on date checks.
+  - **Admin Override**: Unlimited generation access for administrators.
 
 ### **New Pages**
 

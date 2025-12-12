@@ -76,7 +76,7 @@ const Footer = () => {
                       </Link>
                     ) : (
                       <motion.a
-                        href={`'#'${item.toLowerCase()}`}
+                        href={`#${item.toLowerCase()}`}
                         whileHover={{ x: 5 }}
                         className="inline-block text-gray-400 hover:text-indigo-400 transition-colors"
                       >

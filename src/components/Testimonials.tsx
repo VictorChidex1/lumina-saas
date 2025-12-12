@@ -3,30 +3,34 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Quote } from "lucide-react";
 
+import drAlex from "@/assets/images/team/dr-alex.png";
+import Bosa from "@/assets/images/team/Bosa.jpg";
+import Minimi from "@/assets/images/team/Minimi.jpg";
+
 const testimonials = [
   {
     name: "Dr Alex Victory",
     role: "Marketing Director at TechFlow",
     content:
       "Novluma has completely transformed how we handle our social media analytics. The AI insights are incredibly accurate and have helped us double our engagement in just two months.",
-    avatar: "/dr-alex.png",
+    avatar: drAlex,
     initials: "AV",
   },
   {
-    name: "Dr Michael Chen",
-    role: "Founder of StartUp Inc",
+    name: "Miriam Nwakama",
+    role: "Founder of CookWIthMinimi",
     content:
-      "The content generation features are a game-changer. I used to spend hours writing captions, but now Novluma does it in seconds, and they sound exactly like my brand voice.",
-    avatar: "/dr-Michael.png",
-    initials: "MC",
+      "The content generation features are a game-changer. I used to spend hours writing captions and scripts, but now Novluma does it in seconds, and they sound exactly like my brand voice.",
+    avatar: Minimi,
+    initials: "MN",
   },
   {
-    name: "Dr Emily Davis",
-    role: "Social Media Manager",
+    name: "Bosa Jane",
+    role: "Founder Girlie's House",
     content:
       "I've tried every tool out there, but nothing compares to Novluma's ease of use and powerful features. The scheduling tool is intuitive and the analytics are deep yet easy to understand.",
-    avatar: "/dr-emily.png",
-    initials: "ED",
+    avatar: Bosa,
+    initials: "BN",
   },
 ];
 

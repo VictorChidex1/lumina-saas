@@ -317,13 +317,15 @@ export function LandingPage() { ... }
 ## Chapter 8: Pro Design & Navigation Secrets 🎨
 
 ### 1. The "Glowing" Hero Section
+
 To make the FAQ page look premium, we used **Absolute Positioning** and **Blur Effects**.
 
-- **The Blobs**: We placed `<div>` circles *behind* the text using `absolute inset-0` and `z-0`.
+- **The Blobs**: We placed `<div>` circles _behind_ the text using `absolute inset-0` and `z-0`.
 - **The Blur**: We applied `blur-3xl` to these circles to turn them into soft, glowing gradients.
 - **Dark Mode**: We forced the background to be dark (`bg-indigo-950`) even in light mode for that specific section, ensuring high contrast for the white text.
 
 ### 2. The Text Gradient
+
 How do you make text multi-colored?
 
 ```css
@@ -336,7 +338,85 @@ bg-gradient-to-r from-indigo-400 to-cyan-400
 ```
 
 ### 3. The "Instant" Link
+
 You asked about the `Link` component. Here is the difference:
 
 - **`<a href="/contact">`**: This is a standard HTML link. It causes the **entire browser to refresh**. The screen flashes white, and all scripts reload. 🐢
 - **`<Link to="/contact">`**: This is a React Router component. It swaps the content **instantly** without reloading the page. It keeps the "Single Page App" feel smooth and fast. 🚀
+
+---
+
+## 🛑 Chapter 9: The Usage Limit Engine
+
+We built a robust system to limit how many words users can generate per month, protecting your API costs. But here is the secret: we didn't use a server background job. We used a **"Lazy Reset"** pattern.
+
+### 9.1 The Blueprint (`src/types/index.ts`)
+
+First, we had to tell TypeScript that a "User" now has a "Usage" record.
+
+```typescript
+export interface UserProfile {
+  // ... other fields
+  usage?: {
+    wordsUsed: number; // How many words they generated this month
+    cycleStart: Timestamp; // When their 30-day month started
+  };
+}
+```
+
+**Why?** Without this, TypeScript would yell at us if we tried to access `user.usage.wordsUsed`.
+
+### 9.2 The Initialization (`src/context/AuthContext.tsx`)
+
+When a new user signs up, we have to give them a fresh start.
+
+```typescript
+// inside createUserProfile...
+usage: {
+  wordsUsed: 0,
+  cycleStart: serverTimestamp(), // Their "month" starts NOW
+}
+```
+
+### 9.3 The Brains: Lazy Reset (`src/lib/projects.ts`)
+
+This is the most important part. Instead of a server checking every user every day (which is expensive), we check **only when the user tries to do something**.
+
+**The `checkUsage` function:**
+
+1.  **Check Admin**: If `role === 'admin'`, return `true` immediately. Unlimited power! ⚡
+2.  **Check Date**: We calculate `(Today - UsageCycleStart)`.
+    - If it's been > 30 days, we **RESET** `wordsUsed` to 0 and update the date.
+3.  **Check Limit**: If words used < 20,000, let them proceed. Otherwise, block them.
+
+**The `incrementUsage` function:**
+This simply adds the new word count to their total using Firestore's atomic `increment()` function, preventing race conditions.
+
+### 9.4 The Gates (`NewProject.tsx` & `EditProject.tsx`)
+
+Before we let the expensive AI run, we put a guard at the door.
+
+```typescript
+// Inside handleGenerate...
+const canProceed = await checkUsage(user.uid);
+
+if (!canProceed) {
+  toast.error("Limit reached!"); // Stop them right here
+  return;
+}
+
+// If we pass, THEN we call the AI
+await generateContent(...);
+```
+
+### 9.5 The Dashboard (`Dashboard.tsx`)
+
+We visualize this data so users aren't confused.
+
+- **Admin View**: If we see you are an admin, we hardcode the display to "Unlimited" / "∞".
+- **User View**: We show their `wordsUsed` vs the `20,000` limit.
+- **Progress Bar**: A simple math calculation: `(current / limit) * 100`.
+
+### Summary
+
+We built a "Serverless Usage Limiter". It scales infinitely because it relies on the user's own actions to trigger resets, rather than a constantly running server process. Smart and efficient! 🧠
