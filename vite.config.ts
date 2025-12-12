@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/novluma-saas/",
+  // base: "/novluma-saas/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
