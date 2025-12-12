@@ -22,7 +22,14 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, Loader2, Search, Users, FileText } from "lucide-react";
+import {
+  Download,
+  Loader2,
+  Search,
+  Users,
+  FileText,
+  MessageSquare,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -30,38 +37,55 @@ import { toast } from "sonner";
 const AdminDashboard = () => {
   const { user } = useAuth();
   const [applications, setApplications] = useState<Application[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
   const [postCount, setPostCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [filterRole, setFilterRole] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [viewMode, setViewMode] = useState<"applications" | "messages">(
+    "applications"
+  );
 
   useEffect(() => {
-    const fetchApplications = async () => {
+    const fetchData = async () => {
       try {
-        const q = query(
+        // Fetch Applications
+        const appQuery = query(
           collection(db, "applications"),
           orderBy("createdAt", "desc")
         );
-        const querySnapshot = await getDocs(q);
+        const appSnapshot = await getDocs(appQuery);
         const apps: Application[] = [];
-        querySnapshot.forEach((doc) => {
+        appSnapshot.forEach((doc) => {
           apps.push({ id: doc.id, ...doc.data() } as Application);
         });
         setApplications(apps);
+
+        // Fetch Messages
+        const msgQuery = query(
+          collection(db, "contact_messages"),
+          orderBy("createdAt", "desc")
+        );
+        const msgSnapshot = await getDocs(msgQuery);
+        const msgs: any[] = [];
+        msgSnapshot.forEach((doc) => {
+          msgs.push({ id: doc.id, ...doc.data() });
+        });
+        setMessages(msgs);
 
         // Fetch blog posts count
         const postsQ = query(collection(db, "blog_posts"));
         const postsSnapshot = await getDocs(postsQ);
         setPostCount(postsSnapshot.size);
       } catch (error: any) {
-        console.error("Error fetching applications:", error);
-        toast.error(`Failed to load applications: ${error.message}`);
+        console.error("Error fetching data:", error);
+        toast.error(`Failed to load data: ${error.message}`);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchApplications();
+    fetchData();
   }, []);
 
   const downloadResume = (base64: string, filename: string) => {
@@ -93,6 +117,13 @@ const AdminDashboard = () => {
     return matchesRole && matchesSearch;
   });
 
+  const filteredMessages = messages.filter(
+    (msg) =>
+      msg.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      msg.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      msg.firstName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const uniqueRoles = Array.from(new Set(applications.map((app) => app.role)));
 
   return (
@@ -106,7 +137,7 @@ const AdminDashboard = () => {
                 Admin Dashboard
               </h1>
               <p className="text-gray-500 dark:text-gray-400 mt-1">
-                Manage job applications and candidates.
+                Manage job applications, messages, and blog posts.
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -118,7 +149,12 @@ const AdminDashboard = () => {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
+            <Card
+              className={`cursor-pointer transition-colors ${
+                viewMode === "applications" ? "border-2 border-indigo-600" : ""
+              }`}
+              onClick={() => setViewMode("applications")}
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Total Applications
@@ -127,6 +163,23 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{applications.length}</div>
+              </CardContent>
+            </Card>
+
+            <Card
+              className={`cursor-pointer transition-colors ${
+                viewMode === "messages" ? "border-2 border-indigo-600" : ""
+              }`}
+              onClick={() => setViewMode("messages")}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Total Messages
+                </CardTitle>
+                <MessageSquare className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{messages.length}</div>
               </CardContent>
             </Card>
 
@@ -146,31 +199,42 @@ const AdminDashboard = () => {
             </Link>
           </div>
 
-          {/* Filters */}
+          {/* Filters & View Label */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white dark:bg-gray-900 p-4 rounded-lg border border-gray-200 dark:border-gray-800">
             <div className="flex items-center gap-4 w-full md:w-auto">
+              <h2 className="text-lg font-semibold min-w-[150px]">
+                {viewMode === "applications"
+                  ? "Job Applications"
+                  : "Contact Messages"}
+              </h2>
               <div className="relative w-full md:w-64">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search candidates..."
+                  placeholder={
+                    viewMode === "applications"
+                      ? "Search candidates..."
+                      : "Search messages..."
+                  }
                   className="pl-8"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <Select value={filterRole} onValueChange={setFilterRole}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Filter by Role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Roles</SelectItem>
-                  {uniqueRoles.map((role) => (
-                    <SelectItem key={role} value={role}>
-                      {role}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {viewMode === "applications" && (
+                <Select value={filterRole} onValueChange={setFilterRole}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Filter by Role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Roles</SelectItem>
+                    {uniqueRoles.map((role) => (
+                      <SelectItem key={role} value={role}>
+                        {role}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
           </div>
 
@@ -180,7 +244,7 @@ const AdminDashboard = () => {
               <div className="flex justify-center items-center h-64">
                 <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
               </div>
-            ) : (
+            ) : viewMode === "applications" ? (
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -227,6 +291,51 @@ const AdminDashboard = () => {
                             <Download className="h-4 w-4 mr-2" />
                             Download
                           </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Subject</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Message</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredMessages.length === 0 ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={5}
+                        className="text-center h-32 text-gray-500"
+                      >
+                        No messages found.
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    filteredMessages.map((msg) => (
+                      <TableRow key={msg.id}>
+                        <TableCell className="font-medium">
+                          {msg.firstName} {msg.lastName}
+                        </TableCell>
+                        <TableCell className="font-medium text-indigo-600 dark:text-indigo-400">
+                          {msg.subject}
+                        </TableCell>
+                        <TableCell>{msg.email}</TableCell>
+                        <TableCell>
+                          {msg.createdAt?.toDate().toLocaleDateString()}
+                        </TableCell>
+                        <TableCell
+                          className="max-w-xs truncate text-gray-500"
+                          title={msg.message}
+                        >
+                          {msg.message}
                         </TableCell>
                       </TableRow>
                     ))

@@ -38,7 +38,7 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
-    // 5. Default: Deny everything else
+    // 6. Default: Deny everything else
     match /{document=**} {
       allow read, write: if false;
     }
