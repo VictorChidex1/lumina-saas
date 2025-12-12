@@ -37,6 +37,7 @@ const BlogPage = () => {
         querySnapshot.forEach((doc) => {
           fetchedPosts.push({ id: doc.id, ...doc.data() } as BlogPost);
         });
+        console.log("Fetched Blog Posts:", fetchedPosts);
         setPosts(fetchedPosts);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -77,6 +78,17 @@ const BlogPage = () => {
       </div>
     );
   }
+
+  // Helper function for image paths
+  const getImageUrl = (imagePath: string) => {
+    if (!imagePath) return "";
+    if (imagePath.startsWith("http")) return imagePath;
+    // Remove leading slash if present to avoid double slashes with BASE_URL
+    const cleanPath = imagePath.startsWith("/")
+      ? imagePath.slice(1)
+      : imagePath;
+    return `${import.meta.env.BASE_URL}${cleanPath}`;
+  };
 
   const featuredPost = currentPosts[0];
   const gridPosts = currentPosts.slice(1);
@@ -185,7 +197,7 @@ const BlogPage = () => {
                           <div className="relative h-64 md:h-auto overflow-hidden">
                             <div className="absolute inset-0 bg-indigo-600/10 group-hover:bg-transparent transition-colors z-10"></div>
                             <img
-                              src={featuredPost.image}
+                              src={getImageUrl(featuredPost.image)}
                               alt={featuredPost.title}
                               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                             />
@@ -255,7 +267,7 @@ const BlogPage = () => {
                           <div className="relative h-48 overflow-hidden">
                             <div className="absolute inset-0 bg-indigo-900/10 group-hover:bg-transparent transition-colors z-10"></div>
                             <img
-                              src={post.image}
+                              src={getImageUrl(post.image)}
                               alt={post.title}
                               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                             />
