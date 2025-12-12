@@ -31,6 +31,13 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // 5. Contact Messages: Public create, Admin read
+    match /contact_messages/{messageId} {
+      allow create: if true;
+      allow read: if isAdmin();
+      allow update, delete: if false;
+    }
+
     // 5. Default: Deny everything else
     match /{document=**} {
       allow read, write: if false;

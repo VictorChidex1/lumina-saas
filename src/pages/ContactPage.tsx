@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -14,9 +15,57 @@ import {
   CheckCircle,
   Users,
   HelpCircle,
+  Loader2,
 } from "lucide-react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { toast } from "sonner";
 
 const ContactPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.message
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await addDoc(collection(db, "contact_messages"), {
+        ...formData,
+        createdAt: serverTimestamp(),
+        status: "new",
+      });
+      toast.success("Message sent! We'll get back to you soon.");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 selection:bg-indigo-100 dark:selection:bg-indigo-900/30 selection:text-indigo-900 dark:selection:text-indigo-100 flex flex-col">
       <Navbar />
@@ -93,10 +142,10 @@ const ContactPage = () => {
                         Our friendly team is here to help.
                       </p>
                       <a
-                        href="mailto:support@lumina.ai"
+                        href="mailto:novlumaai@gmail.com"
                         className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline"
                       >
-                        support@lumina.ai
+                        novlumaai@gmail.com
                       </a>
                     </div>
                   </div>
@@ -116,10 +165,10 @@ const ContactPage = () => {
                         Mon-Fri from 8am to 5pm PST.
                       </p>
                       <a
-                        href="tel:+15551234567"
+                        href="tel:+2348078741786"
                         className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline"
                       >
-                        +1 (555) 123-4567
+                        +234 8078741786
                       </a>
                     </div>
                   </div>
@@ -228,10 +277,7 @@ const ContactPage = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg"
               >
-                <form
-                  className="space-y-6"
-                  onSubmit={(e) => e.preventDefault()}
-                >
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="firstName">First name</Label>
@@ -239,6 +285,15 @@ const ContactPage = () => {
                         id="firstName"
                         placeholder="Jane"
                         className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 focus:scale-[1.01] origin-left"
+                        value={formData.firstName}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            firstName: e.target.value,
+                          })
+                        }
+                        required
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div className="space-y-2">
@@ -247,6 +302,12 @@ const ContactPage = () => {
                         id="lastName"
                         placeholder="Doe"
                         className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 focus:scale-[1.01] origin-left"
+                        value={formData.lastName}
+                        onChange={(e) =>
+                          setFormData({ ...formData, lastName: e.target.value })
+                        }
+                        required
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -258,6 +319,12 @@ const ContactPage = () => {
                       type="email"
                       placeholder="jane@example.com"
                       className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 focus:scale-[1.01] origin-left"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -267,6 +334,11 @@ const ContactPage = () => {
                       id="subject"
                       placeholder="How can we help?"
                       className="bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 focus:scale-[1.01] origin-left"
+                      value={formData.subject}
+                      onChange={(e) =>
+                        setFormData({ ...formData, subject: e.target.value })
+                      }
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -276,6 +348,12 @@ const ContactPage = () => {
                       id="message"
                       placeholder="Tell us more about your project..."
                       className="min-h-[150px] bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 resize-none transition-all duration-300 focus:scale-[1.01] origin-left"
+                      value={formData.message}
+                      onChange={(e) =>
+                        setFormData({ ...formData, message: e.target.value })
+                      }
+                      required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -283,8 +361,21 @@ const ContactPage = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white h-12 text-lg">
-                      <Send className="w-4 h-4 mr-2" /> Send Message
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-indigo-600 hover:bg-indigo-700 text-white h-12 text-lg"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" /> Send Message
+                        </>
+                      )}
                     </Button>
                   </motion.div>
                 </form>
