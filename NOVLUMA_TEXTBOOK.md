@@ -420,3 +420,60 @@ We visualize this data so users aren't confused.
 ### Summary
 
 We built a "Serverless Usage Limiter". It scales infinitely because it relies on the user's own actions to trigger resets, rather than a constantly running server process. Smart and efficient! 🧠
+
+---
+
+## 💎 Chapter 10: The Final Polish (Routing & Assets)
+
+As we finished the app, we encountered two tricky "real world" problems. Here is how we solved them.
+
+### 10.1 The Image Path Trap
+
+**The Problem**:
+We put images in the `public` folder and referenced them like this: `avatar: "/dr-alex.png"`.
+This worked fine when the website was at `domain.com`. But when we moved it to `localhost:5173/novluma-saas/`, the browser looked for `localhost:5173/dr-alex.png` (The Root) and failed.
+
+**The Professional Fix**:
+Instead of guessing the URL string, we **Imported** the images like code.
+
+```typescript
+// Old Way (Fragile) ❌
+avatar: "/dr-alex.png";
+
+// New Way (Robust) ✅
+import drAlex from "@/assets/images/team/dr-alex.png";
+avatar: drAlex;
+```
+
+**Why?**: When you import an image, Vite (our build tool) takes control. It says, "Don't worry, I will figure out exactly where this file lives, essentially hash it, and give you the correct final URL no matter where you deploy."
+
+### 10.2 The Mixed Navigation Footer
+
+**The Problem**:
+Our Footer has links like "Features", "Pricing", and "FAQ".
+
+- "Features" is a **Section** on the Landing Page.
+- "FAQ" (originally) was a **Page**.
+
+We accidentally treated them all the same, causing confusion.
+
+**The Logic**:
+We had to write code that splits behavior based on the link name.
+
+```typescript
+{
+  item === "Docs" || item === "FAQ" ? (
+    // Case A: It's a separate page
+    <Link to="/faq">FAQ</Link>
+  ) : (
+    // Case B: It's a section on THIS page
+    <a href="#features">Features</a>
+  );
+}
+```
+
+**Why?**:
+
+- **`<Link>`**: Tells React Router to swap the page view (Client-side navigation).
+- **`<a>` with `#`**: Tells the browser to just scroll down (Anchor navigation).
+  Mixing them correctly is key to a smooth user experience! 🚀

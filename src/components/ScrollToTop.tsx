@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    // Only scroll to top if there is NO hash
+    if (!hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
 
   // Show button when page is scrolled up to given distance
   const toggleVisibility = () => {

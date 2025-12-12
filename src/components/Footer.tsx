@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Instagram, Twitter, Linkedin, Facebook } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
 
   return (
     <footer className="bg-gray-900 text-gray-300 pt-16 pb-24 md:py-16 border-t border-gray-800">
@@ -63,28 +64,55 @@ const Footer = () => {
             <h4 className="text-white font-semibold mb-6">Product</h4>
             <ul className="space-y-4">
               {["Features", "Pricing", "Docs", "Testimonials", "FAQ"].map(
-                (item) => (
-                  <li key={item}>
-                    {item === "Docs" || item === "FAQ" ? (
-                      <Link to={item === "Docs" ? "/docs" : "/faq"}>
-                        <motion.span
+                (item) => {
+                  const isPage = item === "Docs" || item === "FAQ";
+                  const isHome = location.pathname === "/";
+                  const sectionId = item.toLowerCase();
+
+                  // Link Logic:
+                  // 1. Docs/FAQ -> Always link to their page (/docs, /faq)
+                  // 2. Sections (Features, Pricing...) ->
+                  //    a. If on Home: Scroll to #section
+                  //    b. If NOT on Home: Navigate to /#section
+
+                  if (isPage) {
+                    return (
+                      <li key={item}>
+                        <Link to={item === "Docs" ? "/docs" : "/faq"}>
+                          <motion.span
+                            whileHover={{ x: 5 }}
+                            className="inline-block text-gray-400 hover:text-indigo-400 transition-colors cursor-pointer"
+                          >
+                            {item}
+                          </motion.span>
+                        </Link>
+                      </li>
+                    );
+                  }
+
+                  return (
+                    <li key={item}>
+                      {isHome ? (
+                        <motion.a
+                          href={`#${sectionId}`}
                           whileHover={{ x: 5 }}
-                          className="inline-block text-gray-400 hover:text-indigo-400 transition-colors cursor-pointer"
+                          className="inline-block text-gray-400 hover:text-indigo-400 transition-colors"
                         >
                           {item}
-                        </motion.span>
-                      </Link>
-                    ) : (
-                      <motion.a
-                        href={`#${item.toLowerCase()}`}
-                        whileHover={{ x: 5 }}
-                        className="inline-block text-gray-400 hover:text-indigo-400 transition-colors"
-                      >
-                        {item}
-                      </motion.a>
-                    )}
-                  </li>
-                )
+                        </motion.a>
+                      ) : (
+                        <Link to={`/#${sectionId}`}>
+                          <motion.span
+                            whileHover={{ x: 5 }}
+                            className="inline-block text-gray-400 hover:text-indigo-400 transition-colors cursor-pointer"
+                          >
+                            {item}
+                          </motion.span>
+                        </Link>
+                      )}
+                    </li>
+                  );
+                }
               )}
             </ul>
           </motion.div>

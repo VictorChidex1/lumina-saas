@@ -22,6 +22,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import CookiePolicy from "./pages/CookiePolicy";
 import CustomersPage from "./pages/CustomersPage";
+import ScrollToHashElement from "./components/ScrollToHashElement";
 import ScrollToTop from "./components/ScrollToTop";
 import { DocsPage } from "./pages/docs/DocsPage";
 import { Toaster } from "@/components/ui/sonner";
@@ -36,6 +37,7 @@ function App() {
       <ThemeProvider>
         <Router basename={import.meta.env.BASE_URL}>
           <ScrollToTop />
+          <ScrollToHashElement />
           <Toaster />
           <Routes>
             <Route path="/" element={<LandingPage />} />

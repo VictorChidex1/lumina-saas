@@ -140,6 +140,22 @@ Novluma is a modern SaaS platform designed for AI-powered content generation. It
   - **Security Layer**: Configured Google Cloud Console **HTTP Referrer Restrictions**.
   - **Result**: API key is now strictly locked to `localhost`, `lumina-saas.vercel.app`, and `victorchidex1.github.io`. Stolen keys cannot be used elsewhere.
 
+### 7. Missing Testimonial Images (Image Path Handling)
+
+- **Issue**: Testimonial images worked on Vercel but broke on Localhost (`/novluma-saas/`).
+- **Root Cause**: Images were referenced via absolute strings (`/img.png`) which failed when the app was served from a subdirectory. Also, images were split between public/src.
+- **Fix**:
+  - Moved all images to `src/assets/images/team`.
+  - Implemented **ES6 Imports** (`import img from "..."`) to let Vite handle the path resolution automatically.
+
+### 8. Footer Link Navigation
+
+- **Issue**: Features/Pricing links in the footer were reloading the page or broken.
+- **Root Cause**: Syntax error in `href` string interpolation (`'#'`) and incorrect routing logic for same-page sections.
+- **Fix**:
+  - Corrected syntax to `href={`#${item.toLowerCase()}`}`.
+  - Split logic: `Docs/FAQ` use React Router `<Link>`, while landing page sections use anchor tags for smooth scrolling.
+
 ---
 
 ## 🔧 Configuration Reference
